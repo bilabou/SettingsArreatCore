@@ -64,9 +64,16 @@ Func Builds()
 			Case $ButtonBuildsCharger
 			
 			Case $ButtonBuildsSupprimer
+				$SuppBuild = GUICtrlRead($ListBuilds)
+				If $SuppBuild = "" Then
+					MsgBox( 48 + 262144, "", "Aucun build sélectionné", 3)
+				Else
+					FileDelete($DossierBuilds & $SuppBuild)
+					ListFichier($DossierBuilds,2)
+				EndIf
 			
 			Case $ButtonBuildsImporter
-			
+				
 			
 		EndSwitch
 	WEnd
