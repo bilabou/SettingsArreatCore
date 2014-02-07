@@ -123,30 +123,48 @@ Func EtatGriser()
 		GUICtrlSetState($InputQualit, $GUI_DISABLE)
 		AjoutLog("On grise le recyclage")
 	EndIf
-EndFunc;==>
+EndFunc;==>EtatGriser
 
-Func ListStats($CheminDuDossier)
-	GUICtrlSetData($ListStats,"")
-	GUICtrlSetData($labelDateStats,"--")
-	GUICtrlSetData($EditStats,"")
+Func ListFichier($CheminDuDossier,$i)
+	Switch $i
+		Case 1
+			GUICtrlSetData($ListStats,"")
+			GUICtrlSetData($labelDateStats,"--")
+			GUICtrlSetData($EditStats,"")
+		Case 2
+			GUICtrlSetData($ListBuilds,"")
+	EndSwitch
 	Local $array = DirGetSize($CheminDuDossier, 1)
 	Local $listeFichiers = _FileListToArray($CheminDuDossier,"*",1)
 	If IsArray($array) Then
-		If $array[1] > 0 Then
-			For $i=1 to $listeFichiers[0]
-				GUICtrlSetData($ListStats,$listeFichiers[$i])
-			Next
-			AjoutLog("Stats chargées dans la ListBox")
-		Else
-			GUICtrlSetData($ListStats,"Aucune stat")
-			AjoutLog("Aucune stat")
-		EndIf
+		Switch $i
+			Case 1
+				If $array[1] > 0 Then
+					For $i=1 to $listeFichiers[0]
+						GUICtrlSetData($ListStats,$listeFichiers[$i])
+					Next
+					AjoutLog("Stats chargées dans la ListBox")
+				Else
+					GUICtrlSetData($ListStats,"Aucune stat")
+					AjoutLog("Aucune stat")
+				EndIf
+			Case 2
+				If $array[1] > 0 Then
+					For $i=1 to $listeFichiers[0]
+						GUICtrlSetData($ListBuilds,$listeFichiers[$i])
+					Next
+					AjoutLog("Builds chargés dans la ListBox")
+				Else
+					GUICtrlSetData($ListBuilds,"Aucun Build")
+					AjoutLog("Aucun Build")
+				EndIf
+		EndSwitch
 	EndIf
-EndFunc;==>EtatGriser
+EndFunc;==>ListFichier
 
 Func AfficheStats($FichierStats)
 	$ContenuStats = FileRead($FichierStats)
-	GUICtrlSetData($Edit_Stats, $ContenuStats)
+	GUICtrlSetData($EditStats, $ContenuStats)
 	FileClose($FichierStats)
 	AjoutLog("Affichage du fichier : " & $FichierStats)
 EndFunc;==>AfficheStats
