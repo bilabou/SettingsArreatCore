@@ -133,6 +133,8 @@ Func ListFichier($CheminDuDossier,$i)
 			GUICtrlSetData($EditStats,"")
 		Case 2
 			GUICtrlSetData($ListBuilds,"")
+		Case 3
+			GUICtrlSetData($ListsBuildsProfils,"")
 	EndSwitch
 	Local $array = DirGetSize($CheminDuDossier, 1)
 	Local $listeFichiers = _FileListToArray($CheminDuDossier,"*",1)
@@ -157,6 +159,16 @@ Func ListFichier($CheminDuDossier,$i)
 				Else
 					GUICtrlSetData($ListBuilds,"Aucun Build")
 					AjoutLog("Aucun Build")
+				EndIf
+			Case 3
+				If $array[1] > 0 Then
+					For $i=1 to $listeFichiers[0]
+						GUICtrlSetData($ListsBuildsProfils,$listeFichiers[$i])
+					Next
+					AjoutLog("Profils chargés dans la ListBox")
+				Else
+					GUICtrlSetData($ListsBuildsProfils,"Aucun Profil")
+					AjoutLog("Aucun profil")
 				EndIf
 		EndSwitch
 	EndIf

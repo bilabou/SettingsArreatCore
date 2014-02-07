@@ -29,23 +29,25 @@ _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
 
 Func Builds()
 
-	$Builds = GUICreate("Builds",377,302,-1,-1,-1,-1)
+	Global $Builds = GUICreate("Builds",377,302,-1,-1,-1,-1)
 	GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
-	$ListBuilds = GUICtrlCreatelist("",15,25,144,227,-1,512)
-	$ListsBuildsProfils = GUICtrlCreatelist("",215,25,144,227,-1,512)
+	Global $ListBuilds = GUICtrlCreatelist("",15,25,144,227,-1,512)
+	Global $ListsBuildsProfils = GUICtrlCreatelist("",215,25,144,227,-1,512)
 	GUICtrlCreateGroup("Builds",10,5,157,258,-1,-1)
 	GUICtrlSetBkColor(-1,"0xF0F0F0")
 	GUICtrlCreateGroup("Profils",210,5,156,258,-1,-1)
 	GUICtrlSetBkColor(-1,"0xF0F0F0")
-	$ButtonBuildsImporter = GUICtrlCreateButton("Importer",5,270,80,25,-1,-1)
-	$ButtonBuildsSupprimer = GUICtrlCreateButton("Supprimer",90,270,80,25,-1,-1)
-	$ButtonBuildsCharger = GUICtrlCreateButton("Charger",285,270,80,25,-1,-1)
+	Global $ButtonBuildsImporter = GUICtrlCreateButton("Importer",5,270,80,25,-1,-1)
+	Global $ButtonBuildsSupprimer = GUICtrlCreateButton("Supprimer",90,270,80,25,-1,-1)
+	Global $ButtonBuildsCharger = GUICtrlCreateButton("Charger",285,270,80,25,-1,-1)
 	GUICtrlCreateLabel(">>",175,120,20,23,-1,-1)
 	GUICtrlSetFont(-1,12,700,0,"MS Sans Serif")
 	GUICtrlSetBkColor(-1,"-2")
-	$ButtonBuildsFermer = GUICtrlCreateButton("Fermer",200,270,80,25,-1,-1)
+	Global $ButtonBuildsFermer = GUICtrlCreateButton("Fermer",200,270,80,25,-1,-1)
 	GUISetState(@SW_SHOW,$Builds)
 
+	ListFichier($DossierBuilds,2) ; on list les builds
+	ListFichier($DossierProfils,3) ; On list les profils
 
 	While 1
 		$nMsg = GUIGetMsg()
@@ -58,7 +60,14 @@ Func Builds()
 			Case $ButtonBuildsFermer
 				GUIDelete($Builds)
 				ExitLoop
-
+				
+			Case $ButtonBuildsCharger
+			
+			Case $ButtonBuildsSupprimer
+			
+			Case $ButtonBuildsImporter
+			
+			
 		EndSwitch
 	WEnd
 EndFunc;==>Builds
