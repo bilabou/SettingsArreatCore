@@ -150,6 +150,7 @@ Func RemplirSettings()
 	EndSwitch
 	GUICtrlSetData($InputLifeForPotion,$LifeForPotion)
 	GUICtrlSetData($InputPotionStock,$PotionStock)
+	GUICtrlSetData($InputNbPotionBuy,$NbPotionBuy)
 	If $TakeShrines="true" Then
 		GUICtrlSetState($CheckboxTakeShrines ,$GUI_CHECKED)
 	Else
@@ -573,6 +574,7 @@ Func RecupDonneesSettings()
 	$Potions = GUICtrlRead($ComboPotions)
 	$LifeForPotion = GUICtrlRead($InputLifeForPotion)
 	$PotionStock = GUICtrlRead($InputPotionStock)
+	$NbPotionBuy = GUICtrlRead($InputNbPotionBuy)
 	If IsChecked($CheckboxTakeShrines) Then
 		$TakeShrines = "true"
 	Else

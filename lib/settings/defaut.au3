@@ -46,6 +46,7 @@ Func ValeurDefaut()
 	$Potions = "healthPotion_Mythic"
 	$LifeForPotion = "60"
 	$PotionStock = "100"
+	$NbPotionBuy = "0"
 	$TakeShrines = "true"
 	$repairafterxxgames = "4"
 	$maxgamelength = "1800000"
