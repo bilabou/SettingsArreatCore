@@ -42,8 +42,6 @@ EndIf
 	
 ;EndIf
 
-
-
 ;;on liste dans "$ListProfils" tous les profils dispos
 ListerProfils($DossierProfils)
 
