@@ -150,7 +150,7 @@ Func Stats()
 	
 	if FileExists($DossierStats) = 0 Then DirCreate($DossierStats)
 		
-	ListStats($DossierStats)
+	ListFichier($DossierStats,1)
 
 	While 1
 		$nMsg = GUIGetMsg()
@@ -167,7 +167,7 @@ Func Stats()
 			
 				DirRemove($DossierStats, 1)
 				DirCreate($DossierStats)
-				ListStats($DossierStats)
+				ListFichier($DossierStats,1)
 				GUICtrlSetData($EditStats,"")
 				AjoutLog("Effacement des stats")
 			
@@ -183,7 +183,7 @@ Func Stats()
 					GUICtrlSetData($EditStats,"Aucune stat de dispo")
 				Else
 					Local $FichierLu = $DossierStats & GUICtrlRead($ListStats)
-					ParseFichierStats($FichierLu)
+					ParseFichierStats(GUICtrlRead($ListStats))
 					AfficheStats($FichierLu)
 				EndIf
 				
