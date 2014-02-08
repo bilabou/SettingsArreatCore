@@ -52,7 +52,7 @@ Func RemplirSettings()
 		Case 3
 			GUICtrlSetData($ComboDifficulte, "Enfer")
 		Case 4
-			GUICtrlSetData($ComboDifficulte, "Armaggedon")
+			GUICtrlSetData($ComboDifficulte, "Armageddon")
 	EndSwitch
 	Switch $PuisMonstre + 1
 		Case 1
@@ -126,7 +126,7 @@ Func RemplirSettings()
 	GUICtrlSetData($InputSpecialmonterList,$specialmonsterList)
 	GUICtrlSetData($InputHAZ,$HeroAxeZ)
 	GUICtrlSetData($InputQualiteItems,$QualiteItem)
-	
+
 	;;SettingsHero.ini
 	Switch $Potions
 		Case "healthPotion_Minor"
@@ -225,7 +225,7 @@ Func RemplirSettings()
 		GUICtrlSetState($CheckboxResActivated ,$GUI_UNCHECKED)
 	EndIf
 	GUICtrlSetData($InputResLife,$ResLife)
-	
+
 	;;Touche, Prébuffs et souris
 	GUICtrlSetData($Inputkey1,$key1)
 	GUICtrlSetData($Inputkey2,$key2)
@@ -279,7 +279,7 @@ Func RemplirSettings()
 	GUICtrlSetData($InputSpellEnergyNeedsRight,$SpellEnergyNeedsRight)
 	GUICtrlSetData($InputSpellLifeRight,$SpellLifeRight)
 	GUICtrlSetData($InputSpellDistanceRight,$SpellDistanceRight)
-	
+
 	;;Touche 1 à 4
 	If $SpellOn1 = "true" Then
 		GUICtrlSetState($CheckboxSpellOn1 ,$GUI_CHECKED)
@@ -321,7 +321,7 @@ Func RemplirSettings()
 	GUICtrlSetData($InputSpellEnergyNeeds4,$SpellEnergyNeeds4)
 	GUICtrlSetData($InputSpellLife4,$SpellLife4)
 	GUICtrlSetData($InputSpellDistance4,$SpellDistance4)
-	
+
 	;;Séquences
 	GUICtrlSetData($InputSequenceAct1,$SequenceFileAct1)
 	GUICtrlSetData($InputSequenceAct2,$SequenceFileAct2)
@@ -388,7 +388,7 @@ Func RecupDonneesSettings()
 			$difficulte = 2
 		case "Enfer"
 			$difficulte = 3
-		Case "Armaggedon"
+		Case "Armageddon"
 			$difficulte = 4
 	EndSwitch
 	Local $ValComboPM = GUICtrlRead($ComboPM)
@@ -443,7 +443,7 @@ Func RecupDonneesSettings()
 			$ChoixActRun = 333
 		Case "Act 3 quête 6 sous quête 2 --> Tuer le Briseur de Siège"
 			$ChoixActRun = 362
-		Case "Act 3 quête 7 sous quête 3 --> Terraser Asmodan"	
+		Case "Act 3 quête 7 sous quête 3 --> Terraser Asmodan"
 			$ChoixActRun = 373
 	EndSwitch
 	If IsChecked($CheckboxSequencesAlea) Then
@@ -467,7 +467,7 @@ Func RecupDonneesSettings()
 	$monsterList = GUICtrlRead($InputMonsterList)
 	$specialmonsterList = GUICtrlRead($InputSpecialmonterList)
 	$QualiteItem = GUICtrlRead($InputQualiteItems)
-	
+
 	$key1 = GUICtrlRead($Inputkey1)
 	$key2 = GUICtrlRead($Inputkey2)
 	$key3 = GUICtrlRead($Inputkey3)
@@ -560,8 +560,8 @@ Func RecupDonneesSettings()
 	$SpellEnergyNeeds4 = GUICtrlRead($InputSpellEnergyNeeds4)
 	$SpellLife4 = GUICtrlRead($InputSpellLife4)
 	$SpellDistance4 = GUICtrlRead($InputSpellDistance4)
-	
-	;;Séquences	
+
+	;;Séquences
 	$SequenceFileAct1 = GUICtrlRead($InputSequenceAct1)
 	$SequenceFileAct2 = GUICtrlRead($InputSequenceAct2)
 	$SequenceFileAct3PtSauve = GUICtrlRead($InputSequenceAct3Pt)
@@ -569,7 +569,7 @@ Func RecupDonneesSettings()
 	$SequenceFileAct333 = GUICtrlRead($InputSequenceAct333)
 	$SequenceFileAct362 = GUICtrlRead($InputSequenceAct362)
 	$SequenceFileAct373 = GUICtrlRead($InputSequenceAct373)
-	
+
 	;;SettingsHero.ini
 	$Potions = GUICtrlRead($ComboPotions)
 	$LifeForPotion = GUICtrlRead($InputLifeForPotion)

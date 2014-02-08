@@ -52,17 +52,17 @@ Func Builds()
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
-		
+
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Builds)
 				ExitLoop
-				
+
 			Case $ButtonBuildsFermer
 				GUIDelete($Builds)
 				ExitLoop
-				
+
 			Case $ButtonBuildsCharger
-			
+
 			Case $ButtonBuildsSupprimer
 				$SuppBuild = GUICtrlRead($ListBuilds)
 				If $SuppBuild = "" Then
@@ -71,10 +71,10 @@ Func Builds()
 					FileDelete($DossierBuilds & $SuppBuild)
 					ListFichier($DossierBuilds,2)
 				EndIf
-			
+
 			Case $ButtonBuildsImporter
-				
-			
+
+
 		EndSwitch
 	WEnd
 EndFunc;==>Builds
@@ -130,15 +130,15 @@ Func Grablists()
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Grablist)
 				ExitLoop
-				
+
 			Case $ButtonFermerGrablist
 				GUIDelete($Grablist)
 				ExitLoop
-			
+
 			Case $ButtonEnregistrerModif
 				CreerFichier()
-			
-			
+
+
 			Case $ComboLectureGrablist
 				LectureGrablist()
 
@@ -163,9 +163,9 @@ Func Stats()
 	GUICtrlSetBkColor(-1,"-2")
 	Global $ButtonFermerStats = GUICtrlCreateButton("Fermer",15,345,200,25,-1,-1)
 	GUISetState(@SW_SHOW,$Stats)
-	
+
 	if FileExists($DossierStats) = 0 Then DirCreate($DossierStats)
-		
+
 	ListFichier($DossierStats,1)
 
 	While 1
@@ -174,26 +174,26 @@ Func Stats()
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Stats)
 				ExitLoop
-				
+
 			Case $ButtonFermerStats
 				GUIDelete($Stats)
 				ExitLoop
-				
+
 			Case $ButtonEffacerStats
-			
+
 				DirRemove($DossierStats, 1)
 				DirCreate($DossierStats)
 				ListFichier($DossierStats,1)
 				GUICtrlSetData($EditStats,"")
 				AjoutLog("Effacement des stats")
-			
+
 			Case $ButtonCopierStats
 				Local $StatsCopier = GUICtrlRead($Edit_Stats)
 				ClipPut($StatsCopier)
 				AjoutLog("Copie des stats dans le presse-papier")
-				
+
 			Case $ListStats
-			
+
 				GUICtrlSetData($EditStats,"")
 				If GUICtrlRead($ListStats) = "" or GUICtrlRead($ListStats) = "Aucune stat" Then
 					GUICtrlSetData($EditStats,"Aucune stat de dispo")
@@ -202,7 +202,7 @@ Func Stats()
 					ParseFichierStats(GUICtrlRead($ListStats))
 					AfficheStats($FichierLu)
 				EndIf
-				
+
 		EndSwitch
 	WEnd
 
@@ -213,7 +213,7 @@ Func EditSettings($ProfilSel)
 	Global $Main = GUICreate("Settings Arreat Core", 666, 426, -1, -1, -1, $WS_EX_TOPMOST)
 	GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
 	Global $Tab1 = GUICtrlCreateTab(8, 8, 649, 377)
-	
+
 	;;Onglet Settings.ini
 	Global $TabSettingsIni = GUICtrlCreateTabItem("Settings")
 	Global $InputPassD3 = GUICtrlCreateInput("", 363, 37, 121, 21)
@@ -258,7 +258,7 @@ Func EditSettings($ProfilSel)
 	Global $InputAct3Max = GUICtrlCreateInput("", 296, 282, 25, 21, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	Global $ComboDifficulte = GUICtrlCreateCombo("", 456, 112, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
-	GUICtrlSetData(-1, "Normal|Cauchemar|Enfer|Armaggedon")
+	GUICtrlSetData(-1, "Normal|Cauchemar|Enfer|Armageddon")
 	Global $ComboPM = GUICtrlCreateCombo("", 456, 144, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
 	GUICtrlSetData(-1, "Pm0|Pm1|Pm2|Pm3|Pm4|Pm5|Pm6|Pm7|Pm8|Pm9|Pm10")
 	Global $ComboGrablist = GUICtrlCreateCombo("", 456, 176, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
@@ -282,7 +282,7 @@ Func EditSettings($ProfilSel)
 	Global $Label25 = GUICtrlCreateLabel("Hero Axe Z :", 512, 248, 64, 17)
 	Global $Label6 = GUICtrlCreateLabel("Profil :", 16, 40, 33, 17)
 	Global $LabelSettingsProfil = GUICtrlCreateLabel("test", 56, 40, 109, 17)
-	
+
 	;;Onglet settingsHero.ini
 	Global $TabHeroIni = GUICtrlCreateTabItem("Héros")
 	Global $Label3 = GUICtrlCreateLabel("Potions :", 168, 64, 45, 17)
@@ -343,7 +343,7 @@ Func EditSettings($ProfilSel)
 	Global $Label46 = GUICtrlCreateLabel("Life_Spore :", 401, 356, 61, 17)
 	Global $Label1 = GUICtrlCreateLabel("Potion achetée :", 16, 96, 82, 17)
 	Global $InputNbPotionBuy = GUICtrlCreateInput("", 107, 88, 41, 21)
-	
+
 	;;Onglet Séquences
 	Global $TabSequences = GUICtrlCreateTabItem("Séquences")
 	Global $Label47 = GUICtrlCreateLabel("Sequence Act1 :", 18, 51, 84, 17)
@@ -367,7 +367,7 @@ Func EditSettings($ProfilSel)
 	Global $ButtonResetAct333 = GUICtrlCreateButton("Reset", 608, 168, 35, 25)
 	Global $ButtonResetAct362 = GUICtrlCreateButton("Reset", 608, 200, 35, 25)
 	Global $ButtonResetAct373 = GUICtrlCreateButton("Reset", 608, 232, 35, 25)
-	
+
 	;;Onglet Touche, Prébuffs et souris
 	Global $TabPrebuffs = GUICtrlCreateTabItem("Prebuffs - Spells")
 	Global $Group_Touches = GUICtrlCreateGroup("Touches", 152, 36, 369, 57)
@@ -426,7 +426,7 @@ Func EditSettings($ProfilSel)
 	Global $Label95 = GUICtrlCreateLabel("Distance :", 424, 216, 52, 17)
 	Global $InputSpellDistanceRight = GUICtrlCreateInput("", 528, 208, 41, 21, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
-	
+
 	;;Onglet Touche 1 à 4
 	Global $TabSpells = GUICtrlCreateTabItem("Spells secondaires")
 	Global $GroupTouche1 = GUICtrlCreateGroup("Touche 1", 24, 40, 473, 73)
@@ -487,7 +487,7 @@ Func EditSettings($ProfilSel)
 	Global $ButtonParDefaut = GUICtrlCreateButton("Par défaut", 320, 392, 91, 25)
 	GUISetState(@SW_SHOW)
 
-	
+
 	RemplirSettings()
 	EtatGriser()
 
@@ -500,7 +500,7 @@ Func EditSettings($ProfilSel)
 			Case $ButtonAnnuler
 				GUIDelete($Main)
 				ExitLoop
-			
+
 			Case $CheckboxPause
 				If GUICtrlRead($CheckboxPause) = $GUI_CHECKED Then
 					GUICtrlSetState($InputApresXparties, $GUI_ENABLE)
@@ -547,43 +547,43 @@ Func EditSettings($ProfilSel)
 					GUICtrlSetState($InputAct3max, $GUI_DISABLE)
 					AjoutLog("On grise les séquences aléatoires")
 				EndIf
-				
+
 			Case $ButtonParDefaut
 				ValeurDefaut()
 				RemplirSettings()
 				MsgBox( 0, "", "Valeurs par défaut chargées !", 3)
-			
+
 			Case $ButtonEnregistrer
 				RecupDonneesSettings()
 				EnregistProfil($ProfilSel)
 				GUIDelete($Main)
 				MsgBox( 0, "", "Profil modifié !", 3)
 				ExitLoop
-				
+
 			Case $ButtonResetAct1
 				$SequenceFileAct1 = "act1-manoir_[1-8]|act1-Val_[1-8]|act1-putride_[1-6]|act1-champs_[1-8]"
 				GUICtrlSetData($InputSequenceAct1,$SequenceFileAct1)
-				
+
 			Case $ButtonResetAct2
 				$SequenceFileAct2 = "act2-alcarnus_[1-8]|act2-gorge_noire_[1-6]|act2-dalgur_[1-2]"
 				GUICtrlSetData($InputSequenceAct2,$SequenceFileAct2)
-				
+
 			Case $ButtonResetAct3
 				$SequenceFileAct3 = "[CMD]safeportstart()|act3_core_start_[1-5]|act3_tower_[1-5]|act3_field_[1-2]|[CMD]TakeWP=0,0,3,4"
 				GUICtrlSetData($InputSequenceAct3,$SequenceFileAct3)
-			
+
 			Case $ButtonResetAct3PT
 				$SequenceFileAct3PtSauve = "act3_pt_save_le_coeur_darreat_[1-5]|act3_tower_[1-5]|act3_field_[1-2]|[CMD]TakeWP=0,0,3,4"
 				GUICtrlSetData($InputSequenceAct3Pt,$SequenceFileAct3PtSauve)
-			
+
 			Case $ButtonResetAct333
 				$SequenceFileAct333 = "act3_rempart_[1-2]|act3_tuer_Ghom"
 				GUICtrlSetData($InputSequenceAct333,$SequenceFileAct333)
-			
+
 			Case $ButtonResetAct362
 				$SequenceFileAct362 = "act3_rempart_[1-2]|act3_field_[1-2]|act3-Tuer_Siegebreaker"
 				GUICtrlSetData($InputSequenceAct362,$SequenceFileAct362)
-			
+
 			Case $ButtonResetAct373
 				$SequenceFileAct373 = "act3_tower_[1-5]|act3_field_[1-2]|act3-Tuer_Azmodan"
 				GUICtrlSetData($InputSequenceAct373,$SequenceFileAct373)
