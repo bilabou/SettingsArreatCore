@@ -216,6 +216,7 @@ Func EditSettings($ProfilSel)
 
 	;;Onglet Settings.ini
 	Global $TabSettingsIni = GUICtrlCreateTabItem("Settings")
+	GUICtrlSetState(-1,$GUI_SHOW)
 	Global $InputPassD3 = GUICtrlCreateInput("", 363, 37, 121, 21)
 	Global $Label2 = GUICtrlCreateLabel("Pass D3 :", 296, 45, 50, 17)
 	Global $RadioBotSeul = GUICtrlCreateRadio("Bot seul", 496, 42, 65, 17)
@@ -280,12 +281,11 @@ Func EditSettings($ProfilSel)
 	Global $InputAct3HAZ = GUICtrlCreateInput("", 456, 272, 41, 21, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
 	Global $InputHAZ = GUICtrlCreateInput("", 592, 240, 41, 21, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
 	Global $Label25 = GUICtrlCreateLabel("Hero Axe Z :", 512, 248, 64, 17)
-	Global $Label6 = GUICtrlCreateLabel("Profil :", 16, 40, 33, 17)
-	Global $LabelSettingsProfil = GUICtrlCreateLabel("test", 56, 40, 109, 17)
+	Global $Label6 = GUICtrlCreateLabel("Profil :", 16, 42, 32, 17)
+	Global $LabelSettingsProfil = GUICtrlCreateLabel("test", 56, 42, 237, 17)
 
 	;;Onglet settingsHero.ini
 	Global $TabHeroIni = GUICtrlCreateTabItem("Héros")
-	GUICtrlSetState(-1,$GUI_SHOW)
 	Global $Label3 = GUICtrlCreateLabel("Potions :", 168, 64, 45, 17)
 	Global $ComboPotions = GUICtrlCreateCombo("", 240, 56, 137, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
 	GUICtrlSetData(-1, "healthPotion_Minor|healthPotion_Lesser|healthPotion_Normal|healthPotion_Greater|HealthPotionLarge|healthPotion_Super|healthPotion_Heroic|healthPotion_Resplendent|healthPotion_Runic|healthPotion_Mythic")
@@ -491,6 +491,9 @@ Func EditSettings($ProfilSel)
 
 	RemplirSettings()
 	EtatGriser()
+
+	$NPerso = IniRead($DossierProfils & $ProfilSel, "Info", "NomPerso", "inconnu")
+	GUICtrlSetData($LabelSettingsProfil,$ProfilSel & "  -- Pseudo : " & $NPerso)
 
 	While 1
 		$nMsg = GUIGetMsg()
