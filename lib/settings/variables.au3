@@ -2,22 +2,27 @@
 
 ;;Déclaration de variables générales
 Global $Logs = ""
-Global $icone = @ScriptDir & "\lib\ico\icon.ico"
+Global $Icon = @ScriptDir & "\lib\ico\icon.ico"
+Global $IconOpt = @ScriptDir & "\lib\ico\options.ico"
 Global $VersionAutoIT = "Version d'AutoIT : " & @AutoItVersion
 Global $DossierProfils = @ScriptDir & "\settings\profils\"
 Global $DossierProfilsSettings = @ScriptDir & "\settings\profils\settings\"
 Global $DossierProfilsSettingsDefaut = @ScriptDir & "\lib\settings\Defaut\"
+Global $D3PrefsNormal = $DossierProfilsSettingsDefaut & "D3Prefs_Normal.txt"
+Global $D3PrefsD3 = @UserProfileDir & "\Documents\Diablo III\D3Prefs.txt"
+Global $D3PrefsPourBot = $DossierProfilsSettingsDefaut & "D3Prefs_Bot.txt"
 Global $FichierSettingsDefaut = $DossierProfilsSettingsDefaut & "settings_defaut.ini"
 Global $FichierSettingsHeroDefaut = $DossierProfilsSettingsDefaut & "settingshero_Defaut.ini"
 Global $DossierBuilds = @ScriptDir & "\settings\builds\"
 Global $DossierLogs = @ScriptDir & "\settings\logs\"
 Global $DossierStats = @ScriptDir & "\stats\"
 Global $DossierSettingsIni = @ScriptDir & "\settings\"
+Global $OptionsIni = @ScriptDir & "\settings\SettingsArreatCore.ini"
 Global $DossierGrab = @ScriptDir & "\grablist\"
 Global $SettingsIni = @ScriptDir& "\settings\settings.ini"
 Global $SettingsHeroIni = @ScriptDir& "\settings\settingsHero1.ini"
 Global $ProfilSel
-Global $Version = "1.3"
+Global $Version = "1.3b"
 
 ;Variables settings.ini
 Global $PassD3 = ""
@@ -149,3 +154,6 @@ Global $ResActivated = ""
 Global $ResLife = ""
 Global $HCSecurity = ""
 Global $MinHCLife = ""
+
+;;Variable Options
+Global $D3PrefsBot = ""

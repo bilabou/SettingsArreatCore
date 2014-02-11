@@ -270,3 +270,25 @@ Func LoadConfigsHero($FichierINI)
 	$MinHCLife = IniRead($FichierINI, "Run info", "MinHCLife", "")
 	AjoutLog("Chargement du fichier : " & $FichierINI)
 EndFunc
+
+;;Lecture des options de Settings Arreat Core
+Func LectureOptions()
+
+	If FileExists($D3PrefsNormal) Then
+		GUICtrlSetState($CheckboxD3PrefsBot, $GUI_ENABLE)
+		$D3PrefsBot = IniRead($OptionsIni, "Optimisations", "D3PrefsBot", "")
+	Else
+		$D3PrefsBot = "false"
+		GUICtrlSetState($CheckboxD3PrefsBot, $GUI_DISABLE)
+	EndIf
+
+	AjoutLog("Chargement du fichier : " & $OptionsIni)
+EndFunc;==>LectureOptions
+
+;;Enregistrement des options de settings Arreat Core
+Func EnregOptions()
+
+	iniwrite($OptionsIni, "Optimisations","D3PrefsBot",$D3PrefsBot)
+
+	AjoutLog("Enregistrement des modifs du fichier : " & $OptionsIni)
+EndFunc;==>EnregOptions

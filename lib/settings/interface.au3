@@ -2,8 +2,8 @@
 
 #NoTrayIcon
 
-Global $MainForm = GUICreate("Settings Core Arreat",617,287,-1,-1,-1,-1)
-GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
+Global $MainForm = GUICreate("Settings Core Arreat",617,306,-1,-1,-1,-1)
+GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 GUICtrlCreateGroup("Profils",5,5,441,272,-1,-1)
 GUICtrlSetBkColor(-1,"0xF0F0F0")
 Global $AddProfil = GUICtrlCreateButton("Ajouter Profil",10,250,100,22,-1,-1)
@@ -17,19 +17,70 @@ Global $ButtonGrablists = GUICtrlCreateButton("Grablists",465,175,137,22,-1,-1)
 GUICtrlSetTip(-1,"Gestion des grablists")
 Global $ButtonLogs = GUICtrlCreateButton("Logs",465,225,137,22,-1,-1)
 GUICtrlSetTip(-1,"Affichage des logs liés au soft")
-Global $ImageLogo = GUICtrlCreatePic(@scriptdir & "\lib\images\logo.jpg",455,10,156,156,-1,-1)
+Global $ImageLogo = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",455,10,156,156,-1,-1)
 GUICtrlCreateGroup("",455,166,156,111,-1,-1)
 GUICtrlSetBkColor(-1,"0xF0F0F0")
 Global $ButtonBuilds = GUICtrlCreateButton("Builds",465,250,137,22,-1,-1)
 GUICtrlSetTip(-1,"Permet d'importer des builds et de les coller à vos profils")
+Global $ButtonOptions = GUICtrlCreateButton("Options",466,280,133,21,-1,-1)
 
 _GUICtrlListView_InsertColumn($ListviewProfils, 0, "Profil", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 1, "Nom du perso", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
 
+
+Func Options()
+
+	Global $Options = GUICreate("Options",221,111,-1,-1,-1,$WS_EX_TOPMOST)
+	GUISetIcon($IconOpt)
+	Global $CheckboxD3PrefsBot = GUICtrlCreateCheckbox("Cpu/gpu pour Bot",25,35,172,20,-1,-1)
+	GUICtrlSetTip(-1,"Modification du D3Prefs.txt avec celui de Toinou75")
+	GUICtrlCreateGroup("Optimisation",10,10,200,86,-1,-1)
+	GUICtrlSetBkColor(-1,"0xF0F0F0")
+	Global $ButtonEnreD3Prefs = GUICtrlCreateButton("Enregistrer D3Prefs.txt actuel",25,60,163,25,-1,-1)
+	GUISetState(@SW_SHOW,$Options)
+
+	If FileExists($OptionsIni) Then ;on test si le fichier de config existe
+		LectureOptions()
+		RempliOtions()
+	Else
+		_FileCreate($OptionsIni) ;sinon on le créé
+	EndIf
+
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				RecupOtions()
+				EnregOptions()
+				GUIDelete($Options)
+				ExitLoop
+
+			Case $ButtonEnreD3Prefs
+				FileCopy($D3PrefsD3, $D3PrefsNormal)
+				AjoutLog("On enregistre le fichier D3Prefs original")
+				LectureOptions()
+			Case $CheckboxD3PrefsBot
+				If IsChecked($CheckboxD3PrefsBot) Then
+					FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
+					GUICtrlSetState($ButtonEnreD3Prefs, $GUI_DISABLE)
+					AjoutLog("On remplace D3Prefs.txt par la version de Toinou75")
+				Else
+					FileCopy($D3PrefsNormal, $D3PrefsD3, 9)
+					GUICtrlSetState($ButtonEnreD3Prefs, $GUI_ENABLE)
+					AjoutLog("On remet le D3Prefs.txt original")
+				EndIf
+
+		EndSwitch
+	WEnd
+
+EndFunc
+
+
 Func Builds()
 
-	Global $Builds = GUICreate("Builds",377,302,-1,-1,-1,-1)
+	Global $Builds = GUICreate("Builds",377,302,-1,-1,-1,$WS_EX_TOPMOST)
 	GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
 	Global $ListBuilds = GUICtrlCreatelist("",15,25,144,227,-1,512)
 	Global $ListsBuildsProfils = GUICtrlCreatelist("",215,25,144,227,-1,512)
