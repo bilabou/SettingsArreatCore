@@ -96,5 +96,8 @@ $nMsg = GUIGetMsg()
 		Case $ButtonBuilds
 			Builds();on ouvre la fenêtre Builds
 			
+		Case $ButtonOptions
+			Options() ;on ouvre la fenêtre Options
+			
 	EndSwitch		
 WEnd

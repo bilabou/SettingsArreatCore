@@ -662,3 +662,25 @@ Func RecupDonneesSettings()
 	$MinHCLife = GUICtrlRead($InputViemini)
 	AjoutLog("On récupère les données pour le settings.ini et le settingsHero.ini")
 EndFunc;==>RecupDonneesSettings
+
+
+Func RempliOtions()
+
+	If $D3PrefsBot = "true" Then
+		GUICtrlSetState($CheckboxD3PrefsBot ,$GUI_CHECKED)
+	Else
+		GUICtrlSetState($CheckboxD3PrefsBot ,$GUI_UNCHECKED)
+	EndIf
+	AjoutLog("Remplissage des options : " & $OptionsIni)
+EndFunc;==>RempliOtions
+
+
+Func RecupOtions()
+
+	If IsChecked($CheckboxD3PrefsBot) Then
+		$D3PrefsBot = "true"
+	Else
+		$D3PrefsBot = "false"
+	EndIf
+	AjoutLog("On récupère les options : " & $OptionsIni)
+EndFunc;==>RecupOtions
