@@ -37,16 +37,10 @@ Else
 	AjoutLog("Dossiers builds, profils et logs : OK")
 EndIf
 
-
-;Désative le boutton Builds
-GUICtrlSetState($ButtonBuilds, $GUI_DISABLE)
-
 ;;On test si diablo 3 est installé sur la machine
 ;If IsRegExists("HKEY_CURRENT_USER", "Software\Blizzard Entertainment\Diablo III Launcher") Then
 	
 ;EndIf
-
-
 
 ;;on liste dans "$ListProfils" tous les profils dispos
 ListerProfils($DossierProfils)
