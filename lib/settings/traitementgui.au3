@@ -214,17 +214,23 @@ Func RemplirSettings()
 	GUICtrlSetData($InputLifeMine,$LifeMine)
 	GUICtrlSetData($InputLifeArm,$LifeArm)
 	GUICtrlSetData($InputLifeSpore,$LifeSpore)
-	If $UsePath="true" Then
+	If $UsePath = "true" Then
 		GUICtrlSetState($CheckboxUsePath ,$GUI_CHECKED)
 	Else
 		GUICtrlSetState($CheckboxUsePath ,$GUI_UNCHECKED)
 	EndIf
-	If $ResActivated="true" Then
+	If $ResActivated = "true" Then
 		GUICtrlSetState($CheckboxResActivated ,$GUI_CHECKED)
 	Else
 		GUICtrlSetState($CheckboxResActivated ,$GUI_UNCHECKED)
 	EndIf
 	GUICtrlSetData($InputResLife,$ResLife)
+	If $HCSecurity = "true" Then
+		GUICtrlSetState($CheckboxSecuHC ,$GUI_CHECKED)
+	Else
+		GUICtrlSetState($CheckboxSecuHC ,$GUI_UNCHECKED)
+	EndIf
+	GUICtrlSetData($InputViemini,$MinHCLife)
 
 	;;Touche, Prébuffs et souris
 	GUICtrlSetData($Inputkey1,$key1)
@@ -648,5 +654,11 @@ Func RecupDonneesSettings()
 		$UsePath = "false"
 	EndIf
 	$ResLife = GUICtrlRead($InputResLife)
+	If IsChecked($CheckboxSecuHC) Then
+		$HCSecurity = "true"
+	Else
+		$HCSecurity = "false"
+	EndIf
+	$MinHCLife = GUICtrlRead($InputViemini)
 	AjoutLog("On récupère les données pour le settings.ini et le settingsHero.ini")
 EndFunc;==>RecupDonneesSettings

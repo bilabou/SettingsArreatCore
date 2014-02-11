@@ -43,7 +43,7 @@ Func LoadConfigs($FichierINI)
 EndFunc
 ;ecriture du fichier settings.ini
 Func SaveConfigs($FichierINI)
-	
+
 	IniWrite($FichierINI, "Account info", "pass", $PassD3)
 	IniWrite($FichierINI, "Run info", "PartieSolo", $PartieSolo)
 	IniWrite($FichierINI, "Run info", "TakeABreak", $TakeABreak)
@@ -174,6 +174,8 @@ Func SaveConfigsHero($FichierINI)
 	iniwrite($FichierINI, "Run info","ResLife",$ResLife)
 	iniwrite($FichierINI, "Run info","ResActivated",$ResActivated)
 	iniwrite($FichierINI, "Run info","UsePath",$UsePath)
+	iniwrite($FichierINI, "Run info","HCSecurity",$HCSecurity)
+	iniwrite($FichierINI, "Run info","MinHCLife",$MinHCLife)
 	AjoutLog("Enregistrement des modifs du fichier : " & $FichierINI)
 EndFunc
 ;lecture du fichier settingsHeroX.ini
@@ -264,5 +266,7 @@ Func LoadConfigsHero($FichierINI)
 	$UsePath = IniRead($FichierINI, "Run info", "UsePath", "")
 	$ResActivated = IniRead($FichierINI, "Run info", "ResActivated", "")
 	$ResLife = IniRead($FichierINI, "Run info", "ResLife", "")
+	$HCSecurity = IniRead($FichierINI, "Run info", "HCSecurity", "")
+	$MinHCLife = IniRead($FichierINI, "Run info", "MinHCLife", "")
 	AjoutLog("Chargement du fichier : " & $FichierINI)
 EndFunc

@@ -32,7 +32,7 @@ Func ValeurDefaut()
 	$monsterList = ""
 	$specialmonsterList = "Goblin|brickhouse_|woodwraith_|Siege_wallMonster|DuneDervish_|Ghost_|Lamprey_|Uber"
 	$QualiteItem = "9"
-	
+
 	;;Séquences
 	$SequenceFileAct1 = "act1-manoir_[1-3]|act1-Val_[1-3]|act1-putride_[1-3]|act1-champs_[1-3]"
 	$SequenceFileAct2 = "act2-alcarnus_[1-3]|act2-gorge_noire_[1-3]|act2-dalgur_[1-2]"
@@ -41,7 +41,7 @@ Func ValeurDefaut()
 	$SequenceFileAct333 = "act3_rempart_[1-2]|act3_tuer_Ghom"
 	$SequenceFileAct362 = "act3_rempart_[1-2]|act3_field_[1-2]|act3-Tuer_Siegebreaker"
 	$SequenceFileAct373 = "act3_tower_[1-5]|act3_field_[1-2]|act3-Tuer_Azmodan"
-	
+
 	;;SettingsHero.ini
 	$Potions = "healthPotion_Mythic"
 	$LifeForPotion = "60"
@@ -77,7 +77,9 @@ Func ValeurDefaut()
 	$UsePath = "True"
 	$ResActivated = "True"
 	$ResLife = "3"
-	
+	$HCSecurity = "false"
+	$MinHCLife = "80"
+
 	;;Touches, Prébuffs et souris
 	$key1 = "&"
 	$key2 = "é"
@@ -107,7 +109,7 @@ Func ValeurDefaut()
 	$SpellEnergyNeedsRight = ""
 	$SpellLifeRight = ""
 	$SpellDistanceRight = ""
-	
+
 	;;Touche 1 à 4
 	$SpellOn1 = "true"
 	$SpellDelay1 = ""
