@@ -23,14 +23,14 @@ Func ListerProfils($CheminDuDossier)
 			Next
 			AjoutLog("Listage des profils")
 		Else
-			AjoutLog("Aucuns profils")
+			AjoutLog("Aucun profil")
 		EndIf
 	EndIf
 EndFunc;==>ListerProfils
 
 ;;Fonction permettant de suprimer un profil
 Func SupprimerProfil($CheminDuDossier)
-	
+
 	Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 	If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
 		Local $index = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetSelected")
@@ -39,26 +39,26 @@ Func SupprimerProfil($CheminDuDossier)
 		FileDelete($CheminDuDossier & $ProfilSupp)
 		FileDelete($DossierProfilsSettings & "settings_" & $ProfilSupp)
 		FileDelete($DossierProfilsSettings & "settingshero_" & $ProfilSupp)
-		AjoutLog("On supprimer le profil : " & $ProfilSupp)
+		AjoutLog("On supprime le profil : " & $ProfilSupp)
 	Else
 		MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 	EndIf
-	
+
 EndFunc;==>SupprimerProfil
 
 ;;Fonction permettant d'éditer un profil
 Func EditProfil($Profil)
-	
+
 	Local $SettingsEdit = $DossierProfilsSettings & "settings_" & $Profil
 	Local $SettingsHeroEdit = $DossierProfilsSettings & "settingshero_" & $Profil
 	LoadConfigs($SettingsEdit)
 	LoadConfigsHero($SettingsHeroEdit)
 	EditSettings($Profil)
-	
+
 EndFunc;==>EditProfil
 
 Func EnregistProfil($Profil)
-	
+
 	Local $SettingsLu = $DossierProfilsSettings & "settings_" & $Profil
 	Local $SettingsHeroLu = $DossierProfilsSettings & "settingshero_" & $Profil
 	SaveConfigs($SettingsLu)
@@ -74,7 +74,7 @@ Func ChargeProfil($Profil)
 	FileCopy($SettingsCharger, $DossierSettingsIni & "settings.ini",9)
 	FileCopy($SettingsHeroCharger, $DossierSettingsIni & "settingsHero1.ini",9)
 	MsgBox( 0, "", "Profil chargé !", 3)
-	
+
 EndFunc;==>ChargeProfil
 
 ;;Fonction permattant de créer un profil

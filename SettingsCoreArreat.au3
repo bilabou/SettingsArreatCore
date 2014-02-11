@@ -39,7 +39,7 @@ EndIf
 
 ;;On test si diablo 3 est installé sur la machine
 ;If IsRegExists("HKEY_CURRENT_USER", "Software\Blizzard Entertainment\Diablo III Launcher") Then
-	
+
 ;EndIf
 
 ;;on liste dans "$ListProfils" tous les profils dispos
@@ -51,11 +51,11 @@ $nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
 			Exit
-			
+
 		Case $AddProfil
 			CreerProfil()
 			ListerProfils($DossierProfils)
-			
+
 		Case $EditProfil
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
@@ -63,15 +63,15 @@ $nMsg = GUIGetMsg()
 				Local $ProfilEdit = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
 				EditProfil($ProfilEdit)
 			Else
-				MsgBox( 48, "", "Aucun profil de s?lectionn?", 3)
+				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
 			ControlListView ("Settings Core Arreat", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
-			
+
 		Case $DeleteProfil
 			SupprimerProfil($DossierProfils)
 			ListerProfils($DossierProfils)
-			
+
 		Case $ChargerProfil
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
@@ -79,22 +79,22 @@ $nMsg = GUIGetMsg()
 				Local $ProfilCharge = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
 				ChargeProfil($ProfilCharge)
 			Else
-				MsgBox( 48, "", "Aucun profil de s?lectionn?", 3)
+				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
 			ControlListView ("Settings Core Arreat", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
-			
+
 		Case $ButtonLogs
 			Logs();on ouvre la fenêtre Logs
-		
+
 		Case $ButtonGrablists
 			Grablists();on ouvre la fenêtre Grablists
-		
+
 		Case $ButtonStats
 			Stats();on ouvre la fenêtre Stats
-		
+
 		Case $ButtonBuilds
 			Builds();on ouvre la fenêtre Builds
-			
-	EndSwitch		
+
+	EndSwitch
 WEnd
