@@ -2,7 +2,7 @@
 
 #NoTrayIcon
 
-Global $MainForm = GUICreate("Settings Core Arreat",617,306,-1,-1,-1,-1)
+Global $MainForm = GUICreate("Settings Arreat Core",617,306,-1,-1,-1,-1)
 GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 GUICtrlCreateGroup("Profils",5,5,441,272,-1,-1)
 GUICtrlSetBkColor(-1,"0xF0F0F0")
@@ -261,7 +261,7 @@ EndFunc;==>Stats
 
 Func EditSettings($ProfilSel)
 
-	Global $Main = GUICreate("Settings Arreat Core", 666, 426, -1, -1, -1, $WS_EX_TOPMOST)
+	Global $Main = GUICreate("Edition de profils", 666, 426, -1, -1, -1, $WS_EX_TOPMOST)
 	GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
 	Global $Tab1 = GUICtrlCreateTab(8, 8, 649, 377)
 
