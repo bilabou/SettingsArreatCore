@@ -75,7 +75,7 @@ Func Builds()
 			Case $ButtonBuildsSupprimer
 				$SuppBuild = GUICtrlRead($ListBuilds)
 				If $SuppBuild = "" Then
-					MsgBox( 48 + 262144, "", "Aucun build sélectionné", 3)
+					MsgBox( 48 + 262144, "", "Aucun build sélectionné !!", 3)
 				Else
 					FileDelete($DossierBuilds & $SuppBuild)
 					ListFichier($DossierBuilds,2)
@@ -85,7 +85,7 @@ Func Builds()
 				Local Const $sMessage = "Hold down Ctrl or Shift to choose multiple files."
 				Local $sFile = FileOpenDialog($sMessage, @WindowsDir & "\", "Settings (*.ini;)")
 				If @error Then
-					MsgBox($MB_SYSTEMMODAL, "", "Aucun fichier sélectionné !!")
+					MsgBox( 48 + 262144, "", "Aucun fichier sélectionné !!", 3)
 				Else
 					$fName = StringRegExpReplace($sFile, "^.*\\", "")
 					FileCopy($sFile, $DossierBuilds & $fName)
@@ -131,7 +131,7 @@ Func CreerBuild()
 		EndSwitch
 	WEnd
 
-EndFunc
+EndFunc;==>CreerBuild
 
 Func Logs()
 

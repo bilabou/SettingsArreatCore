@@ -13,6 +13,7 @@
 #Include <GuiButton.au3>
 #include <GuiTab.au3>
 #include <GuiMenu.au3>
+#include <Misc.au3>
 #include <File.au3>
 
 #include "lib\settings\interface.au3" 		;Construction des diverses fenêtre
@@ -21,6 +22,9 @@
 #include "lib\settings\defaut.au3" 			;Valeur par défaut
 #include "lib\settings\traitementini.au3" 	;Permet Lecture et enregistrement des fichiers ini
 #include "lib\settings\traitementgui.au3" 	;Permet d'insérer et de recupérer les données pour les fichiers ini
+
+;;Si le script est déjà lancé, on empêche un nouveau lancement.
+_Singleton(@ScriptName, 0)
 
 AjoutLog("----------------------------------------------------------------------------")
 AjoutLog("Démarrage de Settings Arreat Core (version " & $Version & ")")
