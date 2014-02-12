@@ -35,11 +35,17 @@ Func SupprimerProfil($CheminDuDossier)
 	If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
 		Local $index = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetSelected")
 		Local $ProfilSupp = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetText", $index)
+		Local $confirm = MsgBox( 20, "Suppression de " & $ProfilSupp, "Etes-vous sûr ?");ajout d'un prompt de confirmation de la suppression
 		_GUICtrlListView_DeleteItemsSelected($ListviewProfils)
-		FileDelete($CheminDuDossier & $ProfilSupp)
-		FileDelete($DossierProfilsSettings & "settings_" & $ProfilSupp)
-		FileDelete($DossierProfilsSettings & "settingshero_" & $ProfilSupp)
-		AjoutLog("On supprime le profil : " & $ProfilSupp)
+
+		If $confirm = 6 Then
+				FileDelete($CheminDuDossier & $ProfilSupp)
+				FileDelete($DossierProfilsSettings & "settings_" & $ProfilSupp)
+				FileDelete($DossierProfilsSettings & "settingshero_" & $ProfilSupp)
+				AjoutLog("On supprime le profil : " & $ProfilSupp)
+		Else
+				GUIDelete($confirm)
+		EndIf
 	Else
 		MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 	EndIf
