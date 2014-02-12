@@ -1,6 +1,6 @@
 ;variables.au3
 
-;;Déclaration de variables générales
+;;Dï¿½claration de variables gï¿½nï¿½rales
 Global $Logs = ""
 Global $Icon = @ScriptDir & "\lib\ico\icon.ico"
 Global $IconOpt = @ScriptDir & "\lib\ico\options.ico"
@@ -22,7 +22,7 @@ Global $DossierGrab = @ScriptDir & "\grablist\"
 Global $SettingsIni = @ScriptDir& "\settings\settings.ini"
 Global $SettingsHeroIni = @ScriptDir& "\settings\settingsHero1.ini"
 Global $ProfilSel
-Global $Version = "1.3b"
+Global $Version = "1.3c"
 
 ;Variables settings.ini
 Global $PassD3 = ""
