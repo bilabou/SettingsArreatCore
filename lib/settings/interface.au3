@@ -55,8 +55,6 @@ Func Builds()
 	ListFichier($DossierBuilds,2) ; on list les builds
 	ListFichier($DossierProfils,3) ; On list les profils
 
-	GUICtrlSetState($ButtonBuildsImporter, $GUI_DISABLE)
-
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
@@ -84,8 +82,15 @@ Func Builds()
 				EndIf
 
 			Case $ButtonBuildsImporter
-
-
+				Local Const $sMessage = "Hold down Ctrl or Shift to choose multiple files."
+				Local $sFile = FileOpenDialog($sMessage, @WindowsDir & "\", "Settings (*.ini;)")
+				If @error Then
+					MsgBox($MB_SYSTEMMODAL, "", "Aucun fichier sélectionné !!")
+				Else
+					$fName = StringRegExpReplace($sFile, "^.*\\", "")
+					FileCopy($sFile, $DossierBuilds & $fName)
+					ListFichier($DossierBuilds,2)
+				EndIf
 		EndSwitch
 	WEnd
 EndFunc;==>Builds
