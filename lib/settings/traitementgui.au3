@@ -667,9 +667,9 @@ EndFunc;==>RecupDonneesSettings
 Func RempliOptions()
 
 	If $D3PrefsBot = "true" Then
-		GUICtrlSetState($CheckboxD3PrefsBot ,$GUI_CHECKED)
+		GUICtrlSetState($CpuGpuItem ,$GUI_CHECKED)
 	Else
-		GUICtrlSetState($CheckboxD3PrefsBot ,$GUI_UNCHECKED)
+		GUICtrlSetState($CpuGpuItem ,$GUI_UNCHECKED)
 	EndIf
 	AjoutLog("Remplissage des options : " & $OptionsIni)
 EndFunc;==>RempliOtions
@@ -677,7 +677,7 @@ EndFunc;==>RempliOtions
 
 Func RecupOtions()
 
-	If IsChecked($CheckboxD3PrefsBot) Then
+	If IsChecked($CpuGpuItem) Then
 		$D3PrefsBot = "true"
 	Else
 		$D3PrefsBot = "false"

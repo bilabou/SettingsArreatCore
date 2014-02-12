@@ -42,6 +42,14 @@ EndIf
 
 ;EndIf
 
+If FileExists($OptionsIni) Then ;on test si le fichier de config existe
+	LectureOptions()
+	RempliOptions()
+Else
+	_FileCreate($OptionsIni) ;sinon on le créé
+	GUICtrlSetState($CpuGpuItem, $GUI_DISABLE) ;on désactive Cpu/Gpu pour bot dans le menu
+EndIf
+
 ;;on liste dans "$ListProfils" tous les profils dispos
 ListerProfils($DossierProfils)
 
@@ -84,20 +92,49 @@ $nMsg = GUIGetMsg()
 			ControlListView ("Settings Core Arreat", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
-		Case $ButtonLogs
+		Case $LogsMenu
 			Logs();on ouvre la fenêtre Logs
 
-		Case $ButtonGrablists
+		Case $GrablistsMenu
 			Grablists();on ouvre la fenêtre Grablists
 
-		Case $ButtonStats
+		Case $StatsMenu
 			Stats();on ouvre la fenêtre Stats
 
-		Case $ButtonBuilds
+		Case $BuildsMenu
 			Builds();on ouvre la fenêtre Builds
 
-		Case $ButtonOptions
- 			Options() ;on ouvre la fenêtre Options
+		Case $EnreD3PrefsMenu
+			FileCopy($D3PrefsD3, $D3PrefsNormal) ;on enregistre le fichier D3Prefs.txt
+			AjoutLog("On enregistre le fichier D3Prefs original")
+			LectureOptions();on dégrise l'option Gpu/Cpu pour bot
 
+		Case $CpuGpuItem
+			If BitAND(GUICtrlRead($CpuGpuItem), $GUI_CHECKED) = $GUI_CHECKED Then
+                GUICtrlSetState($CpuGpuItem, $GUI_UNCHECKED)
+				FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
+				GUICtrlSetState($EnreD3PrefsMenu, $GUI_ENABLE)
+				AjoutLog("On remplace D3Prefs.txt par la version de Toinou75")
+            Else
+                GUICtrlSetState($CpuGpuItem, $GUI_CHECKED)
+				FileCopy($D3PrefsNormal, $D3PrefsD3, 9)
+				GUICtrlSetState($EnreD3PrefsMenu, $GUI_DISABLE)
+				AjoutLog("On remet le D3Prefs.txt original")
+            EndIf
+
+			RecupOtions()
+			EnregOptions()
+
+		Case $DevmodeItem
+			If BitAND(GUICtrlRead($DevmodeItem), $GUI_CHECKED) = $GUI_CHECKED Then
+                GUICtrlSetState($DevmodeItem, $GUI_UNCHECKED)
+				$Devmode = "false"
+				AjoutLog("On désactive le Devmode")
+			Else
+				GUICtrlSetState($DevmodeItem, $GUI_CHECKED)
+				$Devmode = "true"
+				AjoutLog("On passe en Devmode")
+			EndIf
+			IniWrite($SettingsIni, "Run info", "Devmode", $Devmode)
 	EndSwitch
 WEnd

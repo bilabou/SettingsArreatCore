@@ -64,6 +64,7 @@ Global $specialmonsterList = ""
 Global $HeroAxeZ = ""
 Global $SequenceFile = ""
 Global $QualiteItem = ""
+Global $Devmode = ""
 
 ;;Variables settingsHero.ini
 Global $Potions = ""

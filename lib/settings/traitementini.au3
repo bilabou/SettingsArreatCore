@@ -273,13 +273,18 @@ EndFunc
 
 ;;Lecture des options de Settings Arreat Core
 Func LectureOptions()
+	$Devmode = IniRead($SettingsIni, "Run info", "Devmode", "")
+	If $Devmode = "true" Then
+		GUICtrlSetState($DevmodeItem, $GUI_CHECKED)
+	Else
+		GUICtrlSetState($DevmodeItem, $GUI_UNCHECKED)
+	EndIf
 
 	If FileExists($D3PrefsNormal) Then
-		GUICtrlSetState($CheckboxD3PrefsBot, $GUI_ENABLE)
+		GUICtrlSetState($CpuGpuItem, $GUI_ENABLE)
 		$D3PrefsBot = IniRead($OptionsIni, "Optimisations", "D3PrefsBot", "")
 	Else
-		$D3PrefsBot = "false"
-		GUICtrlSetState($CheckboxD3PrefsBot, $GUI_DISABLE)
+		GUICtrlSetState($CpuGpuItem, $GUI_DISABLE)
 	EndIf
 
 	AjoutLog("Chargement du fichier : " & $OptionsIni)

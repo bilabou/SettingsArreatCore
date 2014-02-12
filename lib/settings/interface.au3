@@ -4,78 +4,33 @@
 
 Global $MainForm = GUICreate("Settings Arreat Core",617,306,-1,-1,-1,-1)
 GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
+;;Menu
+$OptionsMenu = GUICtrlCreateMenu("Options")
+$LogsMenu = GUICtrlCreateMenuItem("Afficher les logs", $OptionsMenu)
+$StatsMenu = GUICtrlCreateMenuItem("Afficher les stats", $OptionsMenu)
+$GrablistsMenu = GUICtrlCreateMenuItem("Afficher les grablists", $OptionsMenu)
+$BuildsMenu = GUICtrlCreateMenuItem("Afficher les builds", $OptionsMenu)
+GUICtrlCreateMenuitem("", $OptionsMenu)
+$EnreD3PrefsMenu = GUICtrlCreateMenuItem("Enregistrer le D3Prefs.txt", $OptionsMenu)
+$CpuGpuItem = GUICtrlCreateMenuItem("Cpu/gpu pour Bot", $OptionsMenu)
+GUICtrlCreateMenuitem("", $OptionsMenu)
+$DevmodeItem = GUICtrlCreateMenuItem("Devmode", $OptionsMenu)
+$HelpMenu = GUICtrlCreateMenu("?")
+$InfoItem = GUICtrlCreateMenuItem("Aide", $HelpMenu)
+$AproposItem = GUICtrlCreateMenuItem("A propos", $HelpMenu)
+;;Fin Menu
 GUICtrlCreateGroup("Profils",5,5,441,272,-1,-1)
 GUICtrlSetBkColor(-1,"0xF0F0F0")
 Global $AddProfil = GUICtrlCreateButton("Ajouter Profil",10,250,100,22,-1,-1)
 Global $EditProfil = GUICtrlCreateButton("Editer Profil",110,250,100,22,-1,-1)
 Global $DeleteProfil = GUICtrlCreateButton("Effacer Profil",210,250,100,22,-1,-1)
 Global $ChargerProfil = GUICtrlCreateButton("Charger Profil",340,250,100,22,-1,-1)
-Global $ButtonStats = GUICtrlCreateButton("Stats",465,200,137,22,-1,-1)
-GUICtrlSetTip(-1,"Permet l'affichage des fichiers du dossier 'stats'")
 Global $ListviewProfils = GUICtrlCreatelistview("",10,20,430,225,-1,512)
-Global $ButtonGrablists = GUICtrlCreateButton("Grablists",465,175,137,22,-1,-1)
-GUICtrlSetTip(-1,"Gestion des grablists")
-Global $ButtonLogs = GUICtrlCreateButton("Logs",465,225,137,22,-1,-1)
-GUICtrlSetTip(-1,"Affichage des logs liés au soft")
 Global $ImageLogo = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",455,10,156,156,-1,-1)
-GUICtrlCreateGroup("",455,166,156,111,-1,-1)
-GUICtrlSetBkColor(-1,"0xF0F0F0")
-Global $ButtonBuilds = GUICtrlCreateButton("Builds",465,250,137,22,-1,-1)
-GUICtrlSetTip(-1,"Permet d'importer des builds et de les coller à vos profils")
-Global $ButtonOptions = GUICtrlCreateButton("Options",466,280,133,21,-1,-1)
 
 _GUICtrlListView_InsertColumn($ListviewProfils, 0, "Profil", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 1, "Nom du perso", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
-
-
-Func Options()
-
-	Global $Options = GUICreate("Options",221,111,-1,-1,-1,$WS_EX_TOPMOST)
-	GUISetIcon($IconOpt)
-	Global $CheckboxD3PrefsBot = GUICtrlCreateCheckbox("Cpu/gpu pour Bot",25,35,172,20,-1,-1)
-	GUICtrlSetTip(-1,"Modification du D3Prefs.txt avec celui de Toinou75")
-	GUICtrlCreateGroup("Optimisation",10,10,200,86,-1,-1)
-	GUICtrlSetBkColor(-1,"0xF0F0F0")
-	Global $ButtonEnreD3Prefs = GUICtrlCreateButton("Enregistrer D3Prefs.txt actuel",25,60,163,25,-1,-1)
-	GUISetState(@SW_SHOW,$Options)
-
-	If FileExists($OptionsIni) Then ;on test si le fichier de config existe
-		LectureOptions()
-		RempliOptions()
-	Else
-		_FileCreate($OptionsIni) ;sinon on le créé
-	EndIf
-
-
-	While 1
-		$nMsg = GUIGetMsg()
-		Switch $nMsg
-			Case $GUI_EVENT_CLOSE
-				RecupOtions()
-				EnregOptions()
-				GUIDelete($Options)
-				ExitLoop
-
-			Case $ButtonEnreD3Prefs
-				FileCopy($D3PrefsD3, $D3PrefsNormal)
-				AjoutLog("On enregistre le fichier D3Prefs original")
-				LectureOptions()
-			Case $CheckboxD3PrefsBot
-				If IsChecked($CheckboxD3PrefsBot) Then
-					FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
-					GUICtrlSetState($ButtonEnreD3Prefs, $GUI_DISABLE)
-					AjoutLog("On remplace D3Prefs.txt par la version de Toinou75")
-				Else
-					FileCopy($D3PrefsNormal, $D3PrefsD3, 9)
-					GUICtrlSetState($ButtonEnreD3Prefs, $GUI_ENABLE)
-					AjoutLog("On remet le D3Prefs.txt original")
-				EndIf
-
-		EndSwitch
-	WEnd
-
-EndFunc
 
 
 Func Builds()
