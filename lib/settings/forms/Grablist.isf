@@ -1,0 +1,162 @@
+; -- Created with ISN Form Studio 2 for ISN AutoIt Studio -- ;
+
+Global $Grablist = GUICreate("Grablists",668,420,-1,-1,-1,-1)
+Global $EditGrablists = GUICtrlCreateEdit("",5,40,659,376,-1,-1)
+Global $ComboLectureGrablist = GUICtrlCreateCombo("",80,10,150,21,-1,-1)
+GUICtrlSetData(-1,"")
+GUICtrlCreateLabel("Grablists :",15,15,50,15,-1,-1)
+GUICtrlSetFont(-1,8,400,4,"MS Sans Serif")
+GUICtrlSetBkColor(-1,"-2")
+Global $ButtonEnregistrerModif = GUICtrlCreateButton("Enregistrer les modifications",501,10,155,25,-1,-1)
+Global $ButtonFermerGrablist = GUICtrlCreateButton("Fermer",415,10,83,25,-1,-1)
+
+
+
+#cs
+[gui]
+Handle_deklaration=global
+title=Grablists
+breite=668
+hoehe=420
+style=-1
+exstyle=-1
+bgcolour=0xF0F0F0
+bgimage=none
+handle=Grablist
+parent=
+code=
+xpos=-1
+ypos=-1
+center_gui=true
+title_textmode=normal
+[0x000A11D4]
+handle=414
+locked=0
+code=
+type=edit
+x=5
+y=40
+width=659
+height=376
+text=
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xFFFFFF
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=EditGrablists
+func=
+bgimage=
+order=0
+tabpage=-1
+textmode=text
+[0x00080AB4]
+handle=415
+locked=0
+code=
+type=combo
+x=80
+y=10
+width=150
+height=21
+text=
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xFFFFFF
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ComboLectureGrablist
+func=
+bgimage=
+order=2
+tabpage=-1
+textmode=text
+[0x00060B22]
+handle=416
+locked=0
+code=
+type=label
+x=15
+y=15
+width=50
+height=15
+text=Grablists :
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=-2
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=4
+id=
+func=
+bgimage=
+order=3
+tabpage=-1
+textmode=text
+[0x00060B26]
+handle=417
+locked=0
+code=
+type=button
+x=501
+y=10
+width=155
+height=25
+text=Enregistrer les modifications
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonEnregistrerModif
+func=
+bgimage=
+order=4
+tabpage=-1
+textmode=text
+[0x00060B36]
+handle=418
+locked=0
+code=
+type=button
+x=415
+y=10
+width=83
+height=25
+text=Fermer
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonFermerGrablist
+func=
+bgimage=
+order=5
+tabpage=-1
+textmode=text
+#ce

@@ -1,0 +1,107 @@
+; -- Created with ISN Form Studio 2 for ISN AutoIt Studio -- ;
+
+Global $Options = GUICreate("Options",221,111,-1,-1,-1,$WS_EX_TOPMOST)
+Global $CheckboxD3PrefsBot = GUICtrlCreateCheckbox("Cpu/gpu pour Bot",25,35,172,20,-1,-1)
+GUICtrlSetTip(-1,"Modification du D3Prefs.txt avec celui de Toinou75")
+GUICtrlCreateGroup("Optimisation Diablo 3",10,10,200,86,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+Global $ButtonEnreD3Prefs = GUICtrlCreateButton("Enregistrer D3Prefs.txt actuel",25,60,163,25,-1,-1)
+
+
+
+#cs
+[gui]
+Handle_deklaration=global
+title=Options
+breite=221
+hoehe=111
+style=-1
+exstyle=$WS_EX_TOPMOST
+bgcolour=0xF0F0F0
+bgimage=none
+handle=Options
+parent=
+code=
+xpos=-1
+ypos=-1
+center_gui=true
+title_textmode=normal
+[0x00061622]
+handle=414
+locked=0
+code=
+type=checkbox
+x=25
+y=35
+width=172
+height=20
+text=Cpu/gpu pour Bot
+tooltip=Modification du D3Prefs.txt avec celui de Toinou75
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=CheckboxD3PrefsBot
+func=
+bgimage=
+order=0
+tabpage=-1
+textmode=text
+[0x00061620]
+handle=415
+locked=0
+code=
+type=group
+x=10
+y=10
+width=200
+height=86
+text=Optimisation Diablo 3
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=
+func=
+bgimage=
+order=2
+tabpage=-1
+textmode=text
+[0x0006161C]
+handle=416
+locked=0
+code=
+type=button
+x=25
+y=60
+width=163
+height=25
+text=Enregistrer D3Prefs.txt actuel
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonEnreD3Prefs
+func=
+bgimage=
+order=3
+tabpage=-1
+textmode=text
+#ce
