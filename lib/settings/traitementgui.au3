@@ -664,7 +664,7 @@ Func RecupDonneesSettings()
 EndFunc;==>RecupDonneesSettings
 
 
-Func RempliOtions()
+Func RempliOptions()
 
 	If $D3PrefsBot = "true" Then
 		GUICtrlSetState($CheckboxD3PrefsBot ,$GUI_CHECKED)

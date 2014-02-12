@@ -42,7 +42,7 @@ Func Options()
 
 	If FileExists($OptionsIni) Then ;on test si le fichier de config existe
 		LectureOptions()
-		RempliOtions()
+		RempliOptions()
 	Else
 		_FileCreate($OptionsIni) ;sinon on le créé
 	EndIf
