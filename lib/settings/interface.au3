@@ -55,6 +55,8 @@ Func Builds()
 	ListFichier($DossierBuilds,2) ; on list les builds
 	ListFichier($DossierProfils,3) ; On list les profils
 
+	GUICtrlSetState($ButtonBuildsImporter, $GUI_DISABLE)
+
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
@@ -68,6 +70,9 @@ Func Builds()
 				ExitLoop
 
 			Case $ButtonBuildsCharger
+				$BuildSel = $DossierBuilds & GUICtrlRead($ListBuilds)
+				$ProfilBuildSel = $DossierProfilsSettings & "settingshero_" & GUICtrlRead($ListsBuildsProfils)
+				FileCopy($BuildSel, $ProfilBuildSel, 9)
 
 			Case $ButtonBuildsSupprimer
 				$SuppBuild = GUICtrlRead($ListBuilds)
@@ -84,6 +89,44 @@ Func Builds()
 		EndSwitch
 	WEnd
 EndFunc;==>Builds
+
+Func CreerBuild()
+
+	Global $CreerBuild = GUICreate("Nom du build",260,80,-1,-1,-1,$WS_EX_TOPMOST)
+	GUICtrlCreateLabel("Nom du build :",15,15,74,15,-1,-1)
+	GUICtrlSetBkColor(-1,"-2")
+	Global $InputCreerBuild = GUICtrlCreateInput("",95,10,150,20,-1,512)
+	Global $ButtonCreerBuild = GUICtrlCreateButton("Créer",145,40,100,30,-1,-1)
+	Global $ButtonAnnulerCreerBuild = GUICtrlCreateButton("Annuler",15,40,100,30,-1,-1)
+	GUISetState(@SW_SHOW,$CreerBuild)
+
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				GUIDelete($CreerBuild)
+				ExitLoop
+
+			Case $ButtonCreerBuild
+				$NomBuild = GUICtrlRead($InputCreerBuild) & ".ini"
+				If FileExists($DossierBuilds & $NomBuild) Then
+					MsgBox( 48 + 262144, "", "Build déjà éxistant", 3)
+					ContinueLoop
+				Else
+					FileCopy($FichierSettingsHeroDefaut, $DossierBuilds & $NomBuild)
+				EndIf
+				GUIDelete($CreerBuild)
+				ExitLoop
+
+			Case $ButtonAnnulerCreerBuild
+				GUIDelete($CreerBuild)
+				ExitLoop
+
+		EndSwitch
+	WEnd
+
+EndFunc
 
 Func Logs()
 
@@ -523,13 +566,14 @@ Func EditSettings($ProfilSel)
 	Global $ButtonEnregistrer = GUICtrlCreateButton("Enregistrer les modifications", 496, 392, 163, 25)
 	Global $ButtonAnnuler = GUICtrlCreateButton("Annuler", 416, 392, 75, 25)
 	Global $ButtonParDefaut = GUICtrlCreateButton("Par défaut", 320, 392, 91, 25)
+	Global $ButtonCreerBuild = GUICtrlCreateButton("Créer un build", 8, 392, 99, 25)
 	GUISetState(@SW_SHOW)
 
 
 	RemplirSettings()
 	EtatGriser()
 
-	$NPerso = IniRead($DossierProfils & $ProfilSel, "Info", "NomPerso", "inconnu")
+	$NPerso = IniRead($DossierProfils & $ProfilSel, "Info", "NomPerso", "")
 	GUICtrlSetData($LabelSettingsProfil,$ProfilSel & "  -- Pseudo : " & $NPerso)
 
 	While 1
@@ -600,6 +644,9 @@ Func EditSettings($ProfilSel)
 				GUIDelete($Main)
 				MsgBox( 0, "", "Profil modifié !", 3)
 				ExitLoop
+
+			Case $ButtonCreerBuild
+				CreerBuild()
 
 			Case $ButtonResetAct1
 				$SequenceFileAct1 = "act1-manoir_[1-8]|act1-Val_[1-8]|act1-putride_[1-6]|act1-champs_[1-8]"

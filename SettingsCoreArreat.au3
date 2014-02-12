@@ -67,13 +67,13 @@ $nMsg = GUIGetMsg()
 		Case $EditProfil
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
-				Local $index = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetSelected")
-				Local $ProfilEdit = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+				Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
 				EditProfil($ProfilEdit)
 			Else
 				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
-			ControlListView ("Settings Core Arreat", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
+			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
 		Case $DeleteProfil
@@ -83,13 +83,13 @@ $nMsg = GUIGetMsg()
 		Case $ChargerProfil
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
-				Local $index = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetSelected")
-				Local $ProfilCharge = ControlListView("Settings Core Arreat", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+				Local $ProfilCharge = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
 				ChargeProfil($ProfilCharge)
 			Else
 				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
-			ControlListView ("Settings Core Arreat", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
+			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
 		Case $LogsMenu

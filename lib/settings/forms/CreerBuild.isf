@@ -1,0 +1,133 @@
+; -- Created with ISN Form Studio 2 for ISN AutoIt Studio -- ;
+
+Global $CreerBuild = GUICreate("Nom du build",260,80,-1,-1,-1,$WS_EX_TOPMOST)
+GUICtrlCreateLabel("Nom du build :",15,15,74,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+Global $InputCreerBuild = GUICtrlCreateInput("",95,10,150,20,-1,512)
+Global $ButtonCreerBuild = GUICtrlCreateButton("Créer",145,40,100,30,-1,-1)
+Global $ButtonAnnulerCreerBuild = GUICtrlCreateButton("Annuler",15,40,100,30,-1,-1)
+
+
+
+#cs
+[gui]
+Handle_deklaration=global
+title=Nom du build
+breite=260
+hoehe=80
+style=-1
+exstyle=$WS_EX_TOPMOST
+bgcolour=0xF0F0F0
+bgimage=none
+handle=CreerBuild
+parent=
+code=
+xpos=-1
+ypos=-1
+center_gui=true
+title_textmode=normal
+[0x00021A8C]
+handle=414
+locked=0
+code=
+type=label
+x=15
+y=15
+width=74
+height=15
+text=Nom du build :
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=-2
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=
+func=
+bgimage=
+order=0
+tabpage=-1
+textmode=text
+[0x00021AA0]
+handle=423
+locked=0
+code=
+type=input
+x=95
+y=10
+width=150
+height=20
+text=
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=$WS_EX_CLIENTEDGE
+textcolour=0x000000
+bgcolour=0xFFFFFF
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=InputCreerBuild
+func=
+bgimage=
+order=2
+tabpage=-1
+textmode=text
+[0x00031AA2]
+handle=424
+locked=0
+code=
+type=button
+x=145
+y=40
+width=100
+height=30
+text=Créer
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonCreerBuild
+func=
+bgimage=
+order=3
+tabpage=-1
+textmode=text
+[0x00021AA4]
+handle=425
+locked=0
+code=
+type=button
+x=15
+y=40
+width=100
+height=30
+text=Annuler
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonAnnulerCreerBuild
+func=
+bgimage=
+order=4
+tabpage=-1
+textmode=text
+#ce
