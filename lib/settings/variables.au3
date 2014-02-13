@@ -22,7 +22,7 @@ Global $DossierGrab = @ScriptDir & "\grablist\"
 Global $SettingsIni = @ScriptDir& "\settings\settings.ini"
 Global $SettingsHeroIni = @ScriptDir& "\settings\settingsHero1.ini"
 Global $ProfilSel
-Global $Version = "1.3c"
+Global $Version = "1.3d"
 
 ;Variables settings.ini
 Global $PassD3 = ""

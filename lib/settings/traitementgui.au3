@@ -643,6 +643,7 @@ Func RecupDonneesSettings()
 	$LifeLave = GUICtrlRead($InputLifeLave)
 	$LifeArm = GUICtrlRead($InputLifeArm)
 	$LifeSpore = GUICtrlRead($InputLifeSpore)
+	$LifeMine = GUICtrlRead($InputLifeMine)
 	If IsChecked($CheckboxResActivated) Then
 		$ResActivated = "true"
 	Else
