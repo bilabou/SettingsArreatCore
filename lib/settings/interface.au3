@@ -52,6 +52,7 @@ Func Builds()
 	Global $ButtonBuildsFermer = GUICtrlCreateButton("Fermer",200,270,80,25,-1,-1)
 	GUISetState(@SW_SHOW,$Builds)
 
+	AjoutLog("Ouverture de la fenêtre Builds")
 	ListFichier($DossierBuilds,2) ; on list les builds
 	ListFichier($DossierProfils,3) ; On list les profils
 
@@ -61,16 +62,19 @@ Func Builds()
 
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Builds)
+				AjoutLog("Fermeture de la fenêtre Builds")
 				ExitLoop
 
 			Case $ButtonBuildsFermer
 				GUIDelete($Builds)
+				AjoutLog("Fermeture de la fenêtre Builds")
 				ExitLoop
 
 			Case $ButtonBuildsCharger
 				$BuildSel = $DossierBuilds & GUICtrlRead($ListBuilds)
 				$ProfilBuildSel = $DossierProfilsSettings & "settingshero_" & GUICtrlRead($ListsBuildsProfils)
 				FileCopy($BuildSel, $ProfilBuildSel, 9)
+				AjoutLog("Chargement du build : " & $BuildSel & "dans le profil : " & $ProfilBuildSel)
 
 			Case $ButtonBuildsSupprimer
 				$SuppBuild = GUICtrlRead($ListBuilds)
@@ -78,17 +82,19 @@ Func Builds()
 					MsgBox( 48 + 262144, "", "Aucun build sélectionné !!", 3)
 				Else
 					FileDelete($DossierBuilds & $SuppBuild)
+					AjoutLog("Suppression du build : " & $SuppBuild)
 					ListFichier($DossierBuilds,2)
 				EndIf
 
 			Case $ButtonBuildsImporter
-				Local Const $sMessage = "Hold down Ctrl or Shift to choose multiple files."
+				Local Const $sMessage = "Sélectionner le build à importer."
 				Local $sFile = FileOpenDialog($sMessage, @WindowsDir & "\", "Settings (*.ini;)")
 				If @error Then
 					MsgBox( 48 + 262144, "", "Aucun fichier sélectionné !!", 3)
 				Else
 					$fName = StringRegExpReplace($sFile, "^.*\\", "")
 					FileCopy($sFile, $DossierBuilds & $fName)
+					AjoutLog("Importation Build : " & $fName)
 					ListFichier($DossierBuilds,2)
 				EndIf
 		EndSwitch
@@ -105,12 +111,14 @@ Func CreerBuild()
 	Global $ButtonAnnulerCreerBuild = GUICtrlCreateButton("Annuler",15,40,100,30,-1,-1)
 	GUISetState(@SW_SHOW,$CreerBuild)
 
+	AjoutLog("Ouverture de la fenêtre 'Créer un build'")
 
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($CreerBuild)
+				AjoutLog("Fermeture de la fenêtre 'Créer un build'")
 				ExitLoop
 
 			Case $ButtonCreerBuild
@@ -120,12 +128,15 @@ Func CreerBuild()
 					ContinueLoop
 				Else
 					FileCopy($FichierSettingsHeroDefaut, $DossierBuilds & $NomBuild)
+					AjoutLog("Création d'un nouveau build :" & $NomBuild)
 				EndIf
 				GUIDelete($CreerBuild)
+				AjoutLog("Fermeture de la fenêtre 'Créer un build'")
 				ExitLoop
 
 			Case $ButtonAnnulerCreerBuild
 				GUIDelete($CreerBuild)
+				AjoutLog("Annulation de la création d'un build")
 				ExitLoop
 
 		EndSwitch
@@ -143,6 +154,7 @@ Func Logs()
 	Global $ButtonFermerLogs = GUICtrlCreateButton("Fermer",325,505,100,25,-1,-1)
 	GUISetState(@SW_SHOW,$MainLogs)
 
+	AjoutLog("Ouverture de la fenêtre Logs")
 	GUICtrlSetData($EditLogs,$Logs)
 
 	While 1
@@ -150,15 +162,21 @@ Func Logs()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($MainLogs)
+				AjoutLog("Fermeture de la fenêtre Logs")
 				ExitLoop
+
 			Case $ButtonFermerLogs
 				GUIDelete($MainLogs)
+				AjoutLog("Fermeture de la fenêtre Logs")
 				ExitLoop
+
 			Case $ButtonEffacerLogs
 				GUICtrlSetData($EditLogs,"")
+
 			Case $ButtonExporterLogs
 				CreerFichierLogs ()
 				GUICtrlSetData($EditLogs,$Logs)
+
 		EndSwitch
 	WEnd
 
@@ -174,19 +192,22 @@ Func Grablists()
 	GUICtrlSetFont(-1,8,400,4,"MS Sans Serif")
 	GUICtrlSetBkColor(-1,"-2")
 	Global $ButtonEnregistrerModif = GUICtrlCreateButton("Enregistrer les modifications",501,10,155,25,-1,-1)
-	Global $ButtonFermerGrablist = GUICtrlCreateButton("Fermer",425,10,83,25,-1,-1)
+	Global $ButtonFermerGrablist = GUICtrlCreateButton("Fermer",415,10,83,25,-1,-1)
 	GUISetState(@SW_SHOW,$Grablist)
 
+	AjoutLog("Ouverture de la fenêtre Grablist")
 
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Grablist)
+				AjoutLog("Fermeture de la fenêtre Grablist")
 				ExitLoop
 
 			Case $ButtonFermerGrablist
 				GUIDelete($Grablist)
+				AjoutLog("Fermeture de la fenêtre Grablist")
 				ExitLoop
 
 			Case $ButtonEnregistrerModif
@@ -218,6 +239,7 @@ Func Stats()
 	Global $ButtonFermerStats = GUICtrlCreateButton("Fermer",15,345,200,25,-1,-1)
 	GUISetState(@SW_SHOW,$Stats)
 
+	AjoutLog("Ouverture de la fenêtre Stats")
 	if FileExists($DossierStats) = 0 Then DirCreate($DossierStats)
 
 	ListFichier($DossierStats,1)
@@ -227,10 +249,12 @@ Func Stats()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Stats)
+				AjoutLog("Fermeture de la fenêtre Stats")
 				ExitLoop
 
 			Case $ButtonFermerStats
 				GUIDelete($Stats)
+				AjoutLog("Fermeture de la fenêtre Stats")
 				ExitLoop
 
 			Case $ButtonEffacerStats
@@ -574,6 +598,7 @@ Func EditSettings($ProfilSel)
 	Global $ButtonCreerBuild = GUICtrlCreateButton("Créer un build", 8, 392, 99, 25)
 	GUISetState(@SW_SHOW)
 
+	AjoutLog("Ouverture de la fenêtre 'Edition de profil'")
 
 	RemplirSettings()
 	EtatGriser()
@@ -584,14 +609,19 @@ Func EditSettings($ProfilSel)
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
+
 			Case $GUI_EVENT_CLOSE
 				GUIDelete($Main)
+				AjoutLog("Fermeture de la fenêtre 'Edition de profil'")
 				ExitLoop
+
 			Case $ButtonAnnuler
 				GUIDelete($Main)
+				AjoutLog("Fermeture de la fenêtre 'Edition de profil'")
 				ExitLoop
 
 			Case $CheckboxPause
+
 				If GUICtrlRead($CheckboxPause) = $GUI_CHECKED Then
 					GUICtrlSetState($InputApresXparties, $GUI_ENABLE)
 					GUICtrlSetState($InputTempsPause, $GUI_ENABLE)
@@ -604,7 +634,9 @@ Func EditSettings($ProfilSel)
 					GUICtrlSetState($CheckboxPauseRepas, $GUI_UNCHECKED)
 					AjoutLog("On grise la pause")
 				EndIf
+
 			Case $CheckboxRecycler
+
 				If GUICtrlRead($CheckboxRecycler) = $GUI_CHECKED Then
 					GUICtrlSetState($InputQualit, $GUI_ENABLE)
 					AjoutLog("On dégrise le recyclage")
@@ -612,7 +644,9 @@ Func EditSettings($ProfilSel)
 					GUICtrlSetState($InputQualit, $GUI_DISABLE)
 					AjoutLog("On grise le recyclage")
 				EndIf
+
 			Case $ComboChoixRun
+
 				If GUICtrlRead($ComboChoixRun) = "Acte Aléatoire (Act1,Act2,Act3)" Then
 					GUICtrlSetState($CheckboxSequencesAlea, $GUI_ENABLE)
 					GUICtrlSetState($InputChangementAct, $GUI_ENABLE)
@@ -639,53 +673,73 @@ Func EditSettings($ProfilSel)
 				EndIf
 
 			Case $ButtonParDefaut
+
 				ValeurDefaut()
 				RemplirSettings()
 				MsgBox( 0, "", "Valeurs par défaut chargées !", 3)
 
 			Case $ButtonEnregistrer
+
 				RecupDonneesSettings()
 				EnregistProfil($ProfilSel)
 				GUIDelete($Main)
+				AjoutLog("Fermeture de la fenêtre 'Edition de profil'")
 				MsgBox( 0, "", "Profil modifié !", 3)
 				ExitLoop
 
 			Case $ButtonCreerBuild
+
 				CreerBuild()
 
 			Case $ButtonResetAct1
+
 				$SequenceFileAct1 = "act1-manoir_[1-8]|act1-Val_[1-8]|act1-putride_[1-6]|act1-champs_[1-8]"
 				GUICtrlSetData($InputSequenceAct1,$SequenceFileAct1)
+				AjoutLog("Séquence Act1 par défaut")
 
 			Case $ButtonResetAct2
+
 				$SequenceFileAct2 = "act2-alcarnus_[1-8]|act2-gorge_noire_[1-6]|act2-dalgur_[1-2]"
 				GUICtrlSetData($InputSequenceAct2,$SequenceFileAct2)
+				AjoutLog("Séquence Act2 par défaut")
 
 			Case $ButtonResetAct3
+
 				$SequenceFileAct3 = "[CMD]safeportstart()|act3_core_start_[1-5]|act3_tower_[1-5]|act3_field_[1-2]|[CMD]TakeWP=0,0,3,4"
 				GUICtrlSetData($InputSequenceAct3,$SequenceFileAct3)
+				AjoutLog("Séquence Act3 par défaut")
 
 			Case $ButtonResetAct3PT
+
 				$SequenceFileAct3PtSauve = "act3_pt_save_le_coeur_darreat_[1-5]|act3_tower_[1-5]|act3_field_[1-2]|[CMD]TakeWP=0,0,3,4"
 				GUICtrlSetData($InputSequenceAct3Pt,$SequenceFileAct3PtSauve)
+				AjoutLog("Séquence Act3PT par défaut")
 
 			Case $ButtonResetAct333
+
 				$SequenceFileAct333 = "act3_rempart_[1-2]|act3_tuer_Ghom"
 				GUICtrlSetData($InputSequenceAct333,$SequenceFileAct333)
+				AjoutLog("Séquence Act333 par défaut")
 
 			Case $ButtonResetAct362
+
 				$SequenceFileAct362 = "act3_rempart_[1-2]|act3_field_[1-2]|act3-Tuer_Siegebreaker"
 				GUICtrlSetData($InputSequenceAct362,$SequenceFileAct362)
+				AjoutLog("Séquence Act362 par défaut")
 
 			Case $ButtonResetAct373
+
 				$SequenceFileAct373 = "act3_tower_[1-5]|act3_field_[1-2]|act3-Tuer_Azmodan"
 				GUICtrlSetData($InputSequenceAct373,$SequenceFileAct373)
+				AjoutLog("Séquence Act373 par défaut")
 
 		EndSwitch
 	WEnd
+
 EndFunc;==>EditSettings
 
 Func CreerProfil()
+
 	Global $CreationProfil = GUICreate("Créer un profil",262,117,-1,-1,-1,$WS_EX_TOPMOST,$MainForm)
 	GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
 	Global $CreerProfil = GUICtrlCreateButton("Créer",170,85,82,25,-1,-1)
@@ -701,21 +755,31 @@ Func CreerProfil()
 	GUICtrlSetBkColor(-1,"-2")
 	GUISetState(@SW_SHOW,$CreationProfil)
 
+	AjoutLog("Ouverture de la fenêtre 'Créer un profil'")
+
 	While 1
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
+
 			Case $GUI_EVENT_CLOSE
+
 				GUIDelete($CreationProfil)
+				AjoutLog("Fermeture de la fenêtre 'Créer un profil'")
 				ExitLoop
+
 			Case $AnnulerProfil
+
 				GUIDelete($CreationProfil)
+				AjoutLog("Fermeture de la fenêtre 'Créer un profil'")
 				ExitLoop
+
 			Case $CreerProfil
-				;If Not(GUICtrlRead($InputProfil) = "") Then
-					CreationProfil($DossierProfils)
-					GUIDelete($CreationProfil)
-					ExitLoop
-				;EndIf
+
+				CreationProfil($DossierProfils)
+				GUIDelete($CreationProfil)
+				AjoutLog("Fermeture de la fenêtre 'Créer un profil'")
+				ExitLoop
+
 		EndSwitch
 	WEnd
 EndFunc;==>CreerProfil

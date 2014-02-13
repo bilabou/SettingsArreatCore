@@ -4,6 +4,8 @@
 ;*****************************************
 #include <GUIConstantsEx.au3>
 #include <WindowsConstants.au3>
+#include <MsgBoxConstants.au3>
+#include <InetConstants.au3>
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>
 #include <EditConstants.au3>
@@ -51,6 +53,7 @@ If FileExists($OptionsIni) Then ;on test si le fichier de config existe
 	RempliOptions()
 Else
 	_FileCreate($OptionsIni) ;sinon on le créé
+	LectureOptions()
 	GUICtrlSetState($CpuGpuItem, $GUI_DISABLE) ;on désactive Cpu/Gpu pour bot dans le menu
 EndIf
 
@@ -65,11 +68,14 @@ $nMsg = GUIGetMsg()
 			Exit
 
 		Case $AddProfil
+
 			CreerProfil()
 			ListerProfils($DossierProfils)
 
 		Case $EditProfil
+
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
 				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
 				Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
@@ -77,15 +83,19 @@ $nMsg = GUIGetMsg()
 			Else
 				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
+
 			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
 		Case $DeleteProfil
+
 			SupprimerProfil($DossierProfils)
 			ListerProfils($DossierProfils)
 
 		Case $ChargerProfil
+
 			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+
 			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
 				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
 				Local $ProfilCharge = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
@@ -93,27 +103,34 @@ $nMsg = GUIGetMsg()
 			Else
 				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
 			EndIf
+
 			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
 		Case $LogsMenu
+
 			Logs();on ouvre la fenêtre Logs
 
 		Case $GrablistsMenu
+
 			Grablists();on ouvre la fenêtre Grablists
 
 		Case $StatsMenu
+
 			Stats();on ouvre la fenêtre Stats
 
 		Case $BuildsMenu
+
 			Builds();on ouvre la fenêtre Builds
 
 		Case $EnreD3PrefsMenu
+
 			FileCopy($D3PrefsD3, $D3PrefsNormal) ;on enregistre le fichier D3Prefs.txt
 			AjoutLog("On enregistre le fichier D3Prefs original")
 			LectureOptions();on dégrise l'option Gpu/Cpu pour bot
 
 		Case $CpuGpuItem
+
 			If BitAND(GUICtrlRead($CpuGpuItem), $GUI_CHECKED) = $GUI_CHECKED Then
                 GUICtrlSetState($CpuGpuItem, $GUI_UNCHECKED)
 				FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
@@ -130,6 +147,7 @@ $nMsg = GUIGetMsg()
 			EnregOptions()
 
 		Case $DevmodeItem
+
 			If BitAND(GUICtrlRead($DevmodeItem), $GUI_CHECKED) = $GUI_CHECKED Then
                 GUICtrlSetState($DevmodeItem, $GUI_UNCHECKED)
 				$Devmode = "false"
@@ -137,8 +155,9 @@ $nMsg = GUIGetMsg()
 			Else
 				GUICtrlSetState($DevmodeItem, $GUI_CHECKED)
 				$Devmode = "true"
-				AjoutLog("On passe en Devmode")
+				AjoutLog("On active le Devmode")
 			EndIf
 			IniWrite($SettingsIni, "Run info", "Devmode", $Devmode)
+
 	EndSwitch
 WEnd

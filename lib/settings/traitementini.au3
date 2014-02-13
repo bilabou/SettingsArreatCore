@@ -40,6 +40,7 @@ Func LoadConfigs($FichierINI)
 	$HeroAxeZ = IniRead($FichierINI, "Run info", "Hero_Axe_Z", "")
 	$SequenceFile = IniRead($FichierINI, "Run info", "SequenceFile", "")
 	$QualiteItem = IniRead($FichierINI, "Run info", "QualiteItem", "")
+
 	AjoutLog("Chargement du fichier : " & $FichierINI)
 
 EndFunc;==>LoadConfigs
@@ -86,6 +87,7 @@ Func SaveConfigs($FichierINI)
 	IniWrite($FichierINI, "Run info", "Hero_Axe_Z", $HeroAxeZ)
 	IniWrite($FichierINI, "Run info", "SequenceFile", $SequenceFile)
 	IniWrite($FichierINI, "Run info", "QualiteItem", $QualiteItem)
+
 	AjoutLog("Enregistrement des modifs du fichier : " & $FichierINI)
 
 EndFunc;==>SaveConfigs
@@ -181,6 +183,7 @@ Func SaveConfigsHero($FichierINI)
 	iniwrite($FichierINI, "Run info","UsePath",$UsePath)
 	iniwrite($FichierINI, "Run info","HCSecurity",$HCSecurity)
 	iniwrite($FichierINI, "Run info","MinHCLife",$MinHCLife)
+
 	AjoutLog("Enregistrement des modifs du fichier : " & $FichierINI)
 
 EndFunc;==>SaveConfigsHero
@@ -276,6 +279,7 @@ Func LoadConfigsHero($FichierINI)
 	$ResLife = IniRead($FichierINI, "Run info", "ResLife", "")
 	$HCSecurity = IniRead($FichierINI, "Run info", "HCSecurity", "")
 	$MinHCLife = IniRead($FichierINI, "Run info", "MinHCLife", "")
+
 	AjoutLog("Chargement du fichier : " & $FichierINI)
 
 EndFunc;==>LoadConfigsHero

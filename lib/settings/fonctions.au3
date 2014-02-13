@@ -2,18 +2,22 @@
 
 ;;Création de dossiers
 Func DossierAcreer()
+
 	If FileExists($DossierProfils) = 0 then DirCreate($DossierProfils)
 	If FileExists($DossierProfilsSettings) = 0 then DirCreate($DossierProfilsSettings)
 	If FileExists($DossierBuilds) = 0 then DirCreate($DossierBuilds)
 	If FileExists($DossierLogs) = 0 then DirCreate($DossierLogs)
 	AjoutLog("Création des dossiers profils, builds et logs")
+
 EndFunc;==>DossierAcreer
 
 ;;Fonction permettant de lister les profils
 Func ListerProfils($CheminDuDossier)
+
 	_GUICtrlListView_DeleteAllItems($ListviewProfils)
 	Local $array = DirGetSize($CheminDuDossier, 1)
 	Local $listeFichiers = _FileListToArray($CheminDuDossier,"*",1)
+
 	If IsArray($array) Then
 		If $array[1] > 0 Then
 			For $i=1 to $listeFichiers[0]
@@ -26,12 +30,14 @@ Func ListerProfils($CheminDuDossier)
 			AjoutLog("Aucun profil")
 		EndIf
 	EndIf
+
 EndFunc;==>ListerProfils
 
 ;;Fonction permettant de suprimer un profil
 Func SupprimerProfil($CheminDuDossier)
 
 	Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+
 	If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
 		Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
 		Local $ProfilSupp = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index)
@@ -89,6 +95,7 @@ Func CreationProfil($CheminDuDossier)
 	Local $NomProfil = GUICtrlRead($InputProfil)
 	Local $NomPerso = GUICtrlRead($InputNomPerso)
 	Local $Build = GUICtrlRead($InputBuild)
+
 	If $NomProfil = "" Then ;si pas de nom de profil, on ne le créé pas
 		MsgBox( 48 + 262144, "", "Aucun nom de profil donné", 3)
 	Else
@@ -103,10 +110,12 @@ Func CreationProfil($CheminDuDossier)
 		IniWrite($FichierProfil, "Info", "Build", $Build)
 		AjoutLog("Création d'un nouveau profil : " & $NomProfil)
 	EndIf
+
 EndFunc;==>CreationProfil
 
 ;;On désactive certains champs
 Func EtatGriser()
+
 	If $ChoixActRun <> "-1" Then
 		GUICtrlSetState($CheckboxSequencesAlea, $GUI_DISABLE)
 		GUICtrlSetState($InputChangementAct, $GUI_DISABLE)
@@ -119,19 +128,23 @@ Func EtatGriser()
 		GUICtrlSetState($InputAct3max, $GUI_DISABLE)
 		AjoutLog("On grise les séquences aléatoires")
 	EndIf
+
 	If $TakeABreak = "false" Then
 		GUICtrlSetState($InputApresXparties, $GUI_DISABLE)
 		GUICtrlSetState($InputTempsPause, $GUI_DISABLE)
 		GUICtrlSetState($CheckboxPauseRepas, $GUI_DISABLE)
 		AjoutLog("On grise la pause")
 	EndIf
+
 	If $Recycle = "false" Then
 		GUICtrlSetState($InputQualit, $GUI_DISABLE)
 		AjoutLog("On grise le recyclage")
 	EndIf
+
 EndFunc;==>EtatGriser
 
 Func ListFichier($CheminDuDossier,$i)
+
 	Switch $i
 		Case 1
 			GUICtrlSetData($ListStats,"")
@@ -142,8 +155,10 @@ Func ListFichier($CheminDuDossier,$i)
 		Case 3
 			GUICtrlSetData($ListsBuildsProfils,"")
 	EndSwitch
+
 	Local $array = DirGetSize($CheminDuDossier, 1)
 	Local $listeFichiers = _FileListToArray($CheminDuDossier,"*",1)
+
 	If IsArray($array) Then
 		Switch $i
 			Case 1
@@ -178,16 +193,20 @@ Func ListFichier($CheminDuDossier,$i)
 				EndIf
 		EndSwitch
 	EndIf
+
 EndFunc;==>ListFichier
 
 Func AfficheStats($FichierStats)
+
 	$ContenuStats = FileRead($FichierStats)
 	GUICtrlSetData($EditStats, $ContenuStats)
 	FileClose($FichierStats)
 	AjoutLog("Affichage du fichier : " & $FichierStats)
+
 EndFunc;==>AfficheStats
 
 Func ParseFichierStats($NomFichierStats)
+
 	Local $String = StringMid($NomFichierStats, 6, 16)
 	Local $HeureStats = StringRight($String,5)
 	Local $AnneeStats = StringLeft($String,4)
@@ -195,10 +214,12 @@ Func ParseFichierStats($NomFichierStats)
 	Local $JourStats = StringMid($String,9,2)
 	GUICtrlSetData($labelDateStats,$JourStats & "/" & $MoisStats & "/" & $AnneeStats & "  à " & $HeureStats)
 	AjoutLog("On récupère date et heure du fichier : " & $NomFichierStats)
+
 EndFunc;==>ParseFichierStats
 
 ;;Lecture du fichier grablist
 Func LectureGrablist()
+
 	Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
 	$nbr_lignes = _FileCountLines($fichier)
 	$fp = FileOpen($fichier, 0)
@@ -211,25 +232,31 @@ Func LectureGrablist()
 	FileClose($Fichier)
 	GUICtrlSetData($EditGrablists, $contenu)
 	AjoutLog("Lecture de " & GUICtrlRead($ComboLectureGrablist))
+
 EndFunc;==>LectureGrablist
 
 ;;Modification de la grablist
 Func CreerFichier()
+
 	Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
 	Local $hFile = FileOpen($fichier, 2)
 	Local $GrabModif = GUICtrlRead($EditGrablists)
 	FileWrite($hFile, $GrabModif)
 	FileClose($fichier)
 	AjoutLog("Modification de " & $ComboLectureGrablist)
+
 EndFunc;==>CreerFichier
 
 ;;Gestion des checkBox
 Func IsChecked($control)
+
     Return BitAnd(GUICtrlRead($control),$GUI_CHECKED) = $GUI_CHECKED
+
 EndFunc;==>IsChecked
 
 ;;Test clé registre
 Func IsRegExists($mainkey, $key)
+
     If $mainkey == "HKEY_LOCAL_MACHINE" Then $mainkey =0x80000002
     If $mainkey == "HKEY_CLASSES_ROOT" Then $mainkey = 0x80000000
     If $mainkey == "HKEY_CURRENT_USER" Then $mainkey = 0x80000001
@@ -242,27 +269,34 @@ Func IsRegExists($mainkey, $key)
     Else
         Return(0)
     EndIf
+
 EndFunc ;==>IsRegExists
 
 ;;Exportation du fichier log
 Func CreerFichierLogs ()
+
 	$File = $DossierLogs & "Logs_" & @MDAY & "-" & @MON & "-" & @YEAR & "_" & @HOUR & "-" & @MIN & "-" & @SEC & ".txt"
 	AjoutLog("Fichier " & $File & " créé.")
 	$hFile = FileOpen($File, 2)
 	FileWrite($hFile, $logs)
 	FileClose($hFile)
 	MsgBox(262144, "Chemin", "Vous trouverez les fichiers Logs dans :" & @CRLF & @CRLF & $DossierLogs ,3)
+	AjoutLog("Fichier Log créé : " & $File)
 	;ShellExecuteWait($File) ; Affiche le fichier.
+
 EndFunc;==>CreerFichierLogs
 
 ;;Ajout d'une ligne de Logs
 Func AjoutLog($InfoLog)
+
 	$Logs = "[" & @HOUR & ":" & @MIN & ":" & @SEC & "]" & " - " & $InfoLog & @CRLF & $Logs
+
 EndFunc;==>AjoutLog
+
 
 Func DLBot()
 
-	inetget("https://github.com/Kyria/ArreatCore/archive/master.zip",@ScriptDir & "DL")
+	inetget("https://github.com/Kyria/ArreatCore/archive/master.zip",@ScriptDir & "DL\master.zip")
 
 EndFunc;==>DLBot
 
@@ -290,6 +324,7 @@ EndFunc;==>DLBot
 
 Func GuiCtrlCreateHyperlink($S_TEXT, $I_LEFT, $I_TOP, _
         $I_WIDTH = -1, $I_HEIGHT = -1, $I_COLOR = 0x0000ff, $S_TOOLTIP = '', $I_STYLE = -1, $I_EXSTYLE = -1)
+
     Local $I_CTRLID
     $I_CTRLID = GUICtrlCreateLabel($S_TEXT, $I_LEFT, $I_TOP, $I_WIDTH, $I_HEIGHT, $I_STYLE, $I_EXSTYLE)
     If $I_CTRLID <> 0 Then
@@ -301,4 +336,5 @@ Func GuiCtrlCreateHyperlink($S_TEXT, $I_LEFT, $I_TOP, _
         EndIf
     EndIf
     Return $I_CTRLID
+
 EndFunc ;==>GuiCtrlCreateHyperlink
