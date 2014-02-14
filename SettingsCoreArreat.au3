@@ -122,6 +122,9 @@ $nMsg = GUIGetMsg()
 		Case $BuildsMenu
 
 			Builds();on ouvre la fenêtre Builds
+			
+		Case $AproposItem
+			Apropos()
 
 		Case $EnreD3PrefsMenu
 

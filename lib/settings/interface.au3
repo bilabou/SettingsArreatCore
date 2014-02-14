@@ -101,6 +101,53 @@ Func Builds()
 	WEnd
 EndFunc;==>Builds
 
+Func Apropos()
+	
+	$Apropos = GUICreate("A Propos",350,166,-1,-1,-1,$WS_EX_TOPMOST)
+	$ButtonFermerApropos = GUICtrlCreateButton("Quitter",266,140,79,20,-1,-1)
+	$ImageApropos = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",5,5,156,156,-1,-1)
+	GUICtrlCreateLabel("Settings Arreat Core",185,10,143,15,-1,-1)
+	GUICtrlSetFont(-1,10,700,0,"MS Sans Serif")
+	GUICtrlSetBkColor(-1,"-2")
+	$LabelVersionApropos = GUICtrlCreateLabel("Version 1.3d",225,30,67,15,-1,-1)
+	GUICtrlSetBkColor(-1,"-2")
+	GUICtrlCreateLabel("Pour plus d'information :",170,100,118,15,-1,-1)
+	GUICtrlSetFont(-1,8,400,4,"MS Sans Serif")
+	GUICtrlSetBkColor(-1,"-2")
+	$LabelLienForum = GuiCtrlCreateHyperlink("http://forum.gmstemple.com/",175,120,166,15,0x0000ff,"Cliquer pour accéder au site !")
+	GUICtrlSetBkColor(-1,"-2")
+	GUICtrlCreateLabel("Développer par Sebo.",175,56,127,15,-1,-1)
+	GUICtrlSetColor(-1,"0x008000")
+	GUICtrlSetBkColor(-1,"-2")
+	GUICtrlCreateLabel("Remerciement à Jiisan.",175,75,153,15,-1,-1)
+	GUICtrlSetColor(-1,"0x008000")
+	GUICtrlSetBkColor(-1,"-2")
+	GUISetState(@SW_SHOW,$Apropos)
+
+	AjoutLog("Affichage de la fenêtre A Propos")
+	GUICtrlSetData($LabelVersionApropos, "Version " & $Version)
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				GUIDelete($Apropos)
+				AjoutLog("Fermeture de la fenêtre A Propos")
+				ExitLoop
+				
+			Case $ButtonFermerApropos
+				GUIDelete($Apropos)
+				AjoutLog("Fermeture de la fenêtre A Propos")
+				ExitLoop
+				
+			Case $LabelLienForum
+				ShellExecute("http://forum.gmstemple.com/")
+			
+		EndSwitch
+	WEnd
+	
+EndFunc;==>Apropos
+
 Func CreerBuild()
 
 	Global $CreerBuild = GUICreate("Nom du build",260,80,-1,-1,-1,$WS_EX_TOPMOST)

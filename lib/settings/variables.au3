@@ -1,6 +1,6 @@
 ;variables.au3
 
-;;D�claration de variables g�n�rales
+;;D?claration de variables g?n?rales
 Global $Logs = ""
 Global $Icon = @ScriptDir & "\lib\ico\icon.ico"
 Global $IconOpt = @ScriptDir & "\lib\ico\options.ico"
@@ -22,7 +22,7 @@ Global $DossierGrab = @ScriptDir & "\grablist\"
 Global $SettingsIni = @ScriptDir& "\settings\settings.ini"
 Global $SettingsHeroIni = @ScriptDir& "\settings\settingsHero1.ini"
 Global $ProfilSel
-Global $Version = "1.3d"
+Global $Version = "1.3e"
 
 ;Variables settings.ini
 Global $PassD3 = ""
