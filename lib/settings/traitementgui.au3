@@ -48,45 +48,35 @@ Func RemplirSettings()
 		Case 1
 			GUICtrlSetData($ComboDifficulte, "Normal")
 		Case 2
-			GUICtrlSetData($ComboDifficulte, "Cauchemar")
+			GUICtrlSetData($ComboDifficulte, "Difficile")
 		Case 3
-			GUICtrlSetData($ComboDifficulte, "Enfer")
+			GUICtrlSetData($ComboDifficulte, "Expert")
 		Case 4
-			GUICtrlSetData($ComboDifficulte, "Armageddon")
+			GUICtrlSetData($ComboDifficulte, "Calvaire")
+		Case 5
+			GUICtrlSetData($ComboDifficulte, "Tourment")
 	EndSwitch
 	Switch $PuisMonstre + 1
 		Case 1
-			GUICtrlSetData($ComboPM, "Pm0")
-		Case 2
 			GUICtrlSetData($ComboPM, "Pm1")
-		Case 3
+		Case 2
 			GUICtrlSetData($ComboPM, "Pm2")
-		Case 4
+		Case 3
 			GUICtrlSetData($ComboPM, "Pm3")
-		Case 5
+		Case 4
 			GUICtrlSetData($ComboPM, "Pm4")
-		Case 6
+		Case 5
 			GUICtrlSetData($ComboPM, "Pm5")
-		Case 7
+		Case 6
 			GUICtrlSetData($ComboPM, "Pm6")
-		Case 8
-			GUICtrlSetData($ComboPM, "Pm7")
-		Case 9
-			GUICtrlSetData($ComboPM, "Pm8")
-		Case 10
-			GUICtrlSetData($ComboPM, "Pm9")
-		Case 11
-			GUICtrlSetData($ComboPM, "Pm10")
 	EndSwitch
 	Switch $TypeDeGrabList
 		Case 1
-			GUICtrlSetData($ComboGrablist, "Arma")
+			GUICtrlSetData($ComboGrablist, "Tourment")
 		Case 2
-			GUICtrlSetData($ComboGrablist, "ArmaXp")
+			GUICtrlSetData($ComboGrablist, "TourmentXp")
 		Case 3
-			GUICtrlSetData($ComboGrablist, "ArmaUnid")
-		Case 4
-			GUICtrlSetData($ComboGrablist, "ArmaRecycle")
+			GUICtrlSetData($ComboGrablist, "TourmentRecycle")
 	EndSwitch
 	Switch $ChoixActRun + 2
 		Case 1
@@ -390,17 +380,17 @@ Func RecupDonneesSettings()
 	Switch $ValComboDiff
 		Case "Normal"
 			$difficulte = 1
-		Case "Cauchemar"
+		Case "Difficile"
 			$difficulte = 2
-		case "Enfer"
+		case "Expert"
 			$difficulte = 3
-		Case "Armageddon"
+		Case "Calvaire"
 			$difficulte = 4
+		Case "Tourment"
+			$difficulte = 5
 	EndSwitch
 	Local $ValComboPM = GUICtrlRead($ComboPM)
 	Switch $ValComboPM
-		Case "Pm0"
-			$PuisMonstre = 0
 		Case "Pm1"
 			$PuisMonstre = 1
 		Case "Pm2"
@@ -413,25 +403,15 @@ Func RecupDonneesSettings()
 			$PuisMonstre = 5
 		Case "Pm6"
 			$PuisMonstre = 6
-		Case "Pm7"
-			$PuisMonstre = 7
-		Case "Pm8"
-			$PuisMonstre = 8
-		Case "Pm9"
-			$PuisMonstre = 9
-		Case "Pm10"
-			$PuisMonstre = 10
 	EndSwitch
 	Local $ValComboGrab =  GUICtrlRead($ComboGrablist)
 	Switch $ValComboGrab
-		Case "Arma"
+		Case "Tourment"
 			$TypeDeGrabList = 1
-		Case "ArmaXp"
+		Case "TourmentXp"
 			$TypeDeGrabList = 2
-		Case "ArmaUnid"
+		Case "TourmentRecycle"
 			$TypeDeGrabList = 3
-		Case "ArmaRecycle"
-			$TypeDeGrabList = 4
 	EndSwitch
 	Local $ValComboRun =  GUICtrlRead($ComboChoixRun)
 	Switch $ValComboRun

@@ -601,9 +601,10 @@
 								<property name="Items.Strings" vt="List">
 									<list>
 										<li vt="String">Normal</li>
-										<li vt="String">Cauchemar</li>
-										<li vt="String">Enfer</li>
-										<li vt="String">Armageddon</li>
+										<li vt="String">Difficile</li>
+										<li vt="String">Expert</li>
+										<li vt="String">Calvaire</li>
+										<li vt="String">Tourment</li>
 									</list>
 								</property>
 								<property name="CtrlStyle" vt="Int32">1350763074</property>
@@ -622,17 +623,12 @@
 								<property name="TabOrder" vt="Int8">10</property>
 								<property name="Items.Strings" vt="List">
 									<list>
-										<li vt="String">Pm0</li>
 										<li vt="String">Pm1</li>
 										<li vt="String">Pm2</li>
 										<li vt="String">Pm3</li>
 										<li vt="String">Pm4</li>
 										<li vt="String">Pm5</li>
 										<li vt="String">Pm6</li>
-										<li vt="String">Pm7</li>
-										<li vt="String">Pm8</li>
-										<li vt="String">Pm9</li>
-										<li vt="String">Pm10</li>
 									</list>
 								</property>
 								<property name="CtrlStyle" vt="Int32">1350763074</property>
@@ -651,10 +647,9 @@
 								<property name="TabOrder" vt="Int8">11</property>
 								<property name="Items.Strings" vt="List">
 									<list>
-										<li vt="String">Arma</li>
-										<li vt="String">ArmaXp</li>
-										<li vt="String">ArmaUnid</li>
-										<li vt="String">ArmaRecycle</li>
+										<li vt="String">Tourment</li>
+										<li vt="String">TourmentXp</li>
+										<li vt="String">TourmentRecycle</li>
 									</list>
 								</property>
 								<property name="CtrlStyle" vt="Int32">1350763074</property>

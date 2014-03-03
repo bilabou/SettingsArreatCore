@@ -102,7 +102,7 @@ Func Builds()
 EndFunc;==>Builds
 
 Func Apropos()
-	
+
 	$Apropos = GUICreate("A Propos",350,166,-1,-1,-1,$WS_EX_TOPMOST)
 	$ButtonFermerApropos = GUICtrlCreateButton("Quitter",266,140,79,20,-1,-1)
 	$ImageApropos = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",5,5,156,156,-1,-1)
@@ -134,18 +134,18 @@ Func Apropos()
 				GUIDelete($Apropos)
 				AjoutLog("Fermeture de la fenêtre A Propos")
 				ExitLoop
-				
+
 			Case $ButtonFermerApropos
 				GUIDelete($Apropos)
 				AjoutLog("Fermeture de la fenêtre A Propos")
 				ExitLoop
-				
+
 			Case $LabelLienForum
 				ShellExecute("http://forum.gmstemple.com/")
-			
+
 		EndSwitch
 	WEnd
-	
+
 EndFunc;==>Apropos
 
 Func CreerBuild()
@@ -234,7 +234,7 @@ Func Grablists()
 	Global $Grablist = GUICreate("Grablists",668,420,-1,-1,-1,-1)
 	Global $EditGrablists = GUICtrlCreateEdit("",5,40,659,376,-1,-1)
 	Global $ComboLectureGrablist = GUICtrlCreateCombo("",80,10,150,21,-1,-1)
-	GUICtrlSetData(-1,"grablistArma.txt|grablistArmaXp.txt|grablistArmaUnid.txt|grablistArmaRecycle.txt|grablistNormal.txt|grablistCauchemar.txt|grablistEnfer.txt")
+	GUICtrlSetData(-1,"grabListTourment.txt|grabListTourmentXp.txt|grabListTourmentRecycle.txt|grablistNormal.txt|grablistDifficile.txt|grablistExpert.txt|grablistCalvaire.txt")
 	GUICtrlCreateLabel("Grablists :",15,15,50,15,-1,-1)
 	GUICtrlSetFont(-1,8,400,4,"MS Sans Serif")
 	GUICtrlSetBkColor(-1,"-2")
@@ -385,11 +385,11 @@ Func EditSettings($ProfilSel)
 	Global $InputAct3Max = GUICtrlCreateInput("", 296, 282, 25, 21, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	Global $ComboDifficulte = GUICtrlCreateCombo("", 456, 112, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
-	GUICtrlSetData(-1, "Normal|Cauchemar|Enfer|Armageddon")
+	GUICtrlSetData(-1, "Normal|Difficile|Expert|Calvaire|Tourment")
 	Global $ComboPM = GUICtrlCreateCombo("", 456, 144, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
-	GUICtrlSetData(-1, "Pm0|Pm1|Pm2|Pm3|Pm4|Pm5|Pm6|Pm7|Pm8|Pm9|Pm10")
+	GUICtrlSetData(-1, "Pm1|Pm2|Pm3|Pm4|Pm5|Pm6")
 	Global $ComboGrablist = GUICtrlCreateCombo("", 456, 176, 97, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL,$WS_BORDER))
-	GUICtrlSetData(-1, "Arma|ArmaXp|ArmaUnid|ArmaRecycle")
+	GUICtrlSetData(-1, "Tourment|TourmentXp|TourmentRecycle")
 	Global $Label7 = GUICtrlCreateLabel("Difficulté :", 344, 120, 51, 17)
 	Global $Label8 = GUICtrlCreateLabel("PM :", 344, 152, 26, 17)
 	Global $Label9 = GUICtrlCreateLabel("Type de Grablist :", 344, 184, 85, 17)
