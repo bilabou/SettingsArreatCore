@@ -32,6 +32,43 @@ _GUICtrlListView_InsertColumn($ListviewProfils, 0, "Profil", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 1, "Nom du perso", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
 
+Func ChoixVersion()
+
+	Global $ChoixVersion = GUICreate("Choix de la version utilisée",326,102,-1,-1,$WS_POPUP+$WS_BORDER,$WS_EX_TOPMOST)
+	Global $RadioArreatCoreOriginal = GUICtrlCreateRadio("Arreat Core + Field",15,33,124,20,-1,-1)
+	Global $RadioArreatCoreModif = GUICtrlCreateRadio("Arreat Core + Field modifié",164,33,150,20,-1,-1)
+	GUICtrlCreateLabel("Veuillez choisir la version que vous utilisé :",15,5,299,25,-1,-1)
+	GUICtrlSetFont(-1,10,700,4,"MS Sans Serif")
+	GUICtrlSetBkColor(-1,"-2")
+	Global $ButtonValiderChoixVersion = GUICtrlCreateButton("Valider",15,68,292,27,-1,-1)
+	GUISetState(@SW_SHOW,$ChoixVersion)
+
+	AjoutLog("Ouverture de la fenêtre : Choix de la version")
+
+	While 1
+
+		$nMsg = GUIGetMsg()
+
+		Switch $nMsg
+
+			Case $ButtonValiderChoixVersion
+
+				If IsChecked($RadioArreatCoreOriginal) Then
+					$VersionUtilisee = "Originale"
+				Else
+					$VersionUtilisee = "Modif"
+				EndIf
+				;on enregistre la version utilisée dans SettingsArreatCore.ini
+				iniwrite($OptionsIni, "Infos","VersionUtilisee",$VersionUtilisee)
+
+				GUIDelete($ChoixVersion)
+				AjoutLog("Fermeture de la fenêtre : Choix de la version")
+				GUISetState(@SW_SHOW, $MainForm)
+				ExitLoop
+
+		EndSwitch
+	WEnd
+EndFunc;==>ChoixVersion
 
 Func Builds()
 

@@ -1,0 +1,138 @@
+; -- Created with ISN Form Studio 2 for ISN AutoIt Studio -- ;
+
+Global $ChoixVersion = GUICreate("Choix de la version utilisée",326,102,-1,-1,$WS_POPUP+$WS_BORDER,$WS_EX_TOPMOST)
+Global $RadioArreatCoreOriginal = GUICtrlCreateRadio("Arreat Core + Field",15,33,124,20,-1,-1)
+Global $RadioArreatCoreModif = GUICtrlCreateRadio("Arreat Core + Field modifié",164,33,150,20,-1,-1)
+GUICtrlCreateLabel("Veuillez choisir la version que vous utilisé :",15,5,299,25,-1,-1)
+GUICtrlSetFont(-1,10,700,4,"MS Sans Serif")
+GUICtrlSetBkColor(-1,"-2")
+Global $ButtonValiderChoixVersion = GUICtrlCreateButton("Valider",15,68,292,27,-1,-1)
+
+
+
+#cs
+[gui]
+Handle_deklaration=global
+title=Choix de la version utilisée
+breite=326
+hoehe=102
+style=$WS_POPUP+$WS_BORDER
+exstyle=$WS_EX_TOPMOST
+bgcolour=0xF0F0F0
+bgimage=none
+handle=ChoixVersion
+parent=
+code=
+xpos=-1
+ypos=-1
+center_gui=true
+title_textmode=normal
+[0x00111794]
+handle=450
+locked=0
+resize=
+code=
+type=radio
+x=15
+y=33
+width=124
+height=20
+text=Arreat Core + Field
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=RadioArreatCoreOriginal
+func=
+bgimage=
+order=0
+tabpage=-1
+textmode=text
+[0x000517C2]
+handle=459
+locked=0
+resize=
+code=
+type=radio
+x=164
+y=33
+width=150
+height=20
+text=Arreat Core + Field modifié
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=RadioArreatCoreModif
+func=
+bgimage=
+order=2
+tabpage=-1
+textmode=text
+[0x000C17AA]
+handle=460
+locked=0
+resize=
+code=
+type=label
+x=15
+y=5
+width=299
+height=25
+text=Veuillez choisir la version que vous utilisé :
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=-2
+font=MS Sans Serif
+fontsize=10
+fontstyle=700
+fontattribute=4
+id=
+func=
+bgimage=
+order=3
+tabpage=-1
+textmode=text
+[0x001B1798]
+handle=451
+locked=0
+resize=
+code=
+type=button
+x=15
+y=68
+width=292
+height=27
+text=Valider
+tooltip=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+textcolour=0x000000
+bgcolour=0xF0F0F0
+font=MS Sans Serif
+fontsize=8
+fontstyle=400
+fontattribute=0
+id=ButtonValiderChoixVersion
+func=
+bgimage=
+order=4
+tabpage=-1
+textmode=text
+#ce
