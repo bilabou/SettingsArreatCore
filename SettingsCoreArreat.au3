@@ -53,6 +53,7 @@ If FileExists($OptionsIni) Then ;on test si le fichier de config existe
 	RempliOptions()
 Else
 	_FileCreate($OptionsIni) ;sinon on le créé
+	iniwrite($OptionsIni, "Optimisations","D3PrefsBot","false")
 	LectureOptions()
 	GUICtrlSetState($CpuGpuItem, $GUI_DISABLE) ;on désactive Cpu/Gpu pour bot dans le menu
 EndIf
@@ -122,7 +123,7 @@ $nMsg = GUIGetMsg()
 		Case $BuildsMenu
 
 			Builds();on ouvre la fenêtre Builds
-			
+
 		Case $AproposItem
 			Apropos()
 
