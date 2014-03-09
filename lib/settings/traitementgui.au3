@@ -652,6 +652,13 @@ Func RempliOptions()
 	Else
 		GUICtrlSetState($CpuGpuItem ,$GUI_UNCHECKED)
 	EndIf
+
+	If $Devmode = "true" Then
+		GUICtrlSetState($DevmodeItem ,$GUI_CHECKED)
+	Else
+		GUICtrlSetState($DevmodeItem ,$GUI_UNCHECKED)
+	EndIf
+
 	AjoutLog("Remplissage des options : " & $OptionsIni)
 EndFunc;==>RempliOtions
 
