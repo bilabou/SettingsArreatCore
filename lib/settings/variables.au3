@@ -21,8 +21,9 @@ Global $OptionsIni = @ScriptDir & "\settings\SettingsArreatCore.ini"
 Global $DossierGrab = @ScriptDir & "\grablist\"
 Global $SettingsIni = @ScriptDir& "\settings\settings.ini"
 Global $SettingsHeroIni = @ScriptDir& "\settings\settingsHero1.ini"
-Global $ProfilSel
-Global $Version = "1.3e"
+Global $ProfilSel = ""
+Global $VersionUtilisee = ""
+Global $Version = "2.0"
 
 ;Variables settings.ini
 Global $PassD3 = ""

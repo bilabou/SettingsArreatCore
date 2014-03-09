@@ -220,7 +220,12 @@ EndFunc;==>ParseFichierStats
 ;;Lecture du fichier grablist
 Func LectureGrablist()
 
-	Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
+	If $VersionUtilisee = "Originale" Then
+		Local $fichier = @ScriptDir & "\" & GUICtrlRead($ComboLectureGrablist)
+	Else
+		Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
+	EndIf
+
 	$nbr_lignes = _FileCountLines($fichier)
 	$fp = FileOpen($fichier, 0)
 
@@ -238,7 +243,12 @@ EndFunc;==>LectureGrablist
 ;;Modification de la grablist
 Func CreerFichier()
 
-	Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
+	If $VersionUtilisee = "Originale" Then
+		Local $fichier = @ScriptDir & "\" & GUICtrlRead($ComboLectureGrablist)
+	Else
+		Local $fichier = $DossierGrab & GUICtrlRead($ComboLectureGrablist)
+	EndIf
+
 	Local $hFile = FileOpen($fichier, 2)
 	Local $GrabModif = GUICtrlRead($EditGrablists)
 	FileWrite($hFile, $GrabModif)

@@ -294,11 +294,11 @@ Func LectureOptions()
 		GUICtrlSetState($DevmodeItem, $GUI_UNCHECKED)
 	EndIf
 
-	If FileExists($D3PrefsNormal) Then
-		GUICtrlSetState($CpuGpuItem, $GUI_ENABLE)
-		$D3PrefsBot = IniRead($OptionsIni, "Optimisations", "D3PrefsBot", "")
+	$D3PrefsBot = IniRead($OptionsIni, "Optimisations", "D3PrefsBot", "")
+	If $D3PrefsBot = "true" Then
+		GUICtrlSetState($CpuGpuItem, $GUI_CHECKED)
 	Else
-		GUICtrlSetState($CpuGpuItem, $GUI_DISABLE)
+		GUICtrlSetState($CpuGpuItem, $GUI_UNCHECKED)
 	EndIf
 
 	AjoutLog("Chargement du fichier : " & $OptionsIni)

@@ -651,12 +651,22 @@ Func RempliOptions()
 		GUICtrlSetState($CpuGpuItem ,$GUI_CHECKED)
 	Else
 		GUICtrlSetState($CpuGpuItem ,$GUI_UNCHECKED)
+
+		If FileExists($D3PrefsNormal) = 0 Then
+			GUICtrlSetState($CpuGpuItem, $GUI_DISABLE)
+		EndIf
 	EndIf
 
 	If $Devmode = "true" Then
 		GUICtrlSetState($DevmodeItem ,$GUI_CHECKED)
 	Else
 		GUICtrlSetState($DevmodeItem ,$GUI_UNCHECKED)
+	EndIf
+
+	if $VersionUtilisee = "Modif" Then
+		GUICtrlSetState($VersionItem ,$GUI_CHECKED)
+	Else
+		GUICtrlSetState($VersionItem ,$GUI_UNCHECKED)
 	EndIf
 
 	AjoutLog("Remplissage des options : " & $OptionsIni)

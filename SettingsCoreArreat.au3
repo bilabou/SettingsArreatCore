@@ -1,11 +1,8 @@
-;*****************************************
-;SettingsCoreArreat.au3 by Sebo
-;Cr?? avec ISN AutoIt Studio v. 0.95 BETA
-;*****************************************
+#Region Include
 #include <GUIConstantsEx.au3>
 #include <WindowsConstants.au3>
 #include <MsgBoxConstants.au3>
-#include <InetConstants.au3>
+;#include <InetConstants.au3>
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>
 #include <EditConstants.au3>
@@ -18,12 +15,13 @@
 #include <Misc.au3>
 #include <File.au3>
 
-#include "lib\settings\interface.au3" 		;Construction des diverses fenêtre
 #include "lib\settings\variables.au3" 		;Variable globales
+#include "lib\settings\interface.au3" 		;Construction des diverses fenêtre
 #include "lib\settings\fonctions.au3" 		;Traitement divers (listage, création de fichier ou dossier...)
 #include "lib\settings\defaut.au3" 			;Valeur par défaut
 #include "lib\settings\traitementini.au3" 	;Permet Lecture et enregistrement des fichiers ini
 #include "lib\settings\traitementgui.au3" 	;Permet d'insérer et de recupérer les données pour les fichiers ini
+#EndRegion
 
 ;;Si le script est déjà lancé, on empêche un nouveau lancement.
 _Singleton(@ScriptName, 0)
@@ -33,8 +31,12 @@ AjoutLog("Démarrage de Settings Arreat Core (version " & $Version & ")")
 AjoutLog("----------------------------------------------------------------------------")
 AjoutLog($VersionAutoIT)
 
-;;On affiche l'interface principale
-GUISetState(@SW_SHOW, $MainForm)
+If FileExists($OptionsIni) = 0 Then ;on test si le fichier de config existe
+	_FileCreate($OptionsIni) ;sinon on le créé
+	;On met les valeurs par défaut pour la création du fichier
+	iniwrite($OptionsIni, "Infos","VersionUtilisee","")
+	iniwrite($OptionsIni, "Optimisations","D3PrefsBot","false")
+EndIf
 
 ;;Test pour savoir si les dossiers profils,builds et logs existent
 If FileExists($DossierProfils) = 0 or FileExists($DossierBuilds) = 0 or FileExists($DossierLogs) = 0 or FileExists($DossierProfilsSettings) = 0 Then
@@ -43,20 +45,27 @@ Else
 	AjoutLog("Dossiers builds, profils et logs : OK")
 EndIf
 
+;;on lit SettingsArreatCore.ini
+$VersionUtilisee = IniRead($OptionsIni,"Infos","VersionUtilisee","")
+
+Switch $VersionUtilisee
+	Case "" ;on lance la fenêtre de choix de la version
+		ChoixVersion()
+	Case "Originale" ;on désative les builds pour la version originale
+		GUICtrlSetState($BuildsItem, $GUI_DISABLE)
+		GUISetState(@SW_SHOW, $MainForm)
+	Case "Modif"
+		GUISetState(@SW_SHOW, $MainForm)
+EndSwitch
+
+
 ;;On test si diablo 3 est installé sur la machine
 ;If IsRegExists("HKEY_CURRENT_USER", "Software\Blizzard Entertainment\Diablo III Launcher") Then
 
 ;EndIf
 
-If FileExists($OptionsIni) Then ;on test si le fichier de config existe
-	LectureOptions()
-	RempliOptions()
-Else
-	_FileCreate($OptionsIni) ;sinon on le créé
-	iniwrite($OptionsIni, "Optimisations","D3PrefsBot","false")
-	LectureOptions()
-	GUICtrlSetState($CpuGpuItem, $GUI_DISABLE) ;on désactive Cpu/Gpu pour bot dans le menu
-EndIf
+LectureOptions();Lecture options pour le menu
+RempliOptions();On répercute les valeurs (VersionUtilisee, Devmode et D3PrefsBot) données par la lecture
 
 ;;on liste dans "$ListProfils" tous les profils dispos
 ListerProfils($DossierProfils)
@@ -108,26 +117,26 @@ $nMsg = GUIGetMsg()
 			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
 			$selection = "" ;On vide la variable pour le prochian chargement
 
-		Case $LogsMenu
+		Case $LogsItem
 
 			Logs();on ouvre la fenêtre Logs
 
-		Case $GrablistsMenu
+		Case $GrablistsItem
 
 			Grablists();on ouvre la fenêtre Grablists
 
-		Case $StatsMenu
+		Case $StatsItem
 
 			Stats();on ouvre la fenêtre Stats
 
-		Case $BuildsMenu
+		Case $BuildsItem
 
 			Builds();on ouvre la fenêtre Builds
 
 		Case $AproposItem
 			Apropos()
 
-		Case $EnreD3PrefsMenu
+		Case $EnreD3PrefsItem
 
 			FileCopy($D3PrefsD3, $D3PrefsNormal) ;on enregistre le fichier D3Prefs.txt
 			AjoutLog("On enregistre le fichier D3Prefs original")
@@ -138,12 +147,12 @@ $nMsg = GUIGetMsg()
 			If BitAND(GUICtrlRead($CpuGpuItem), $GUI_CHECKED) = $GUI_CHECKED Then
                 GUICtrlSetState($CpuGpuItem, $GUI_UNCHECKED)
 				FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
-				GUICtrlSetState($EnreD3PrefsMenu, $GUI_ENABLE)
+				GUICtrlSetState($EnreD3PrefsItem, $GUI_ENABLE)
 				AjoutLog("On remplace D3Prefs.txt par la version de Toinou75")
             Else
                 GUICtrlSetState($CpuGpuItem, $GUI_CHECKED)
 				FileCopy($D3PrefsNormal, $D3PrefsD3, 9)
-				GUICtrlSetState($EnreD3PrefsMenu, $GUI_DISABLE)
+				GUICtrlSetState($EnreD3PrefsItem, $GUI_DISABLE)
 				AjoutLog("On remet le D3Prefs.txt original")
             EndIf
 
@@ -162,6 +171,21 @@ $nMsg = GUIGetMsg()
 				AjoutLog("On active le Devmode")
 			EndIf
 			IniWrite($SettingsIni, "Run info", "Devmode", $Devmode)
+
+		Case $VersionItem
+
+			If BitAND(GUICtrlRead($VersionItem), $GUI_CHECKED) = $GUI_CHECKED Then
+                GUICtrlSetState($VersionItem, $GUI_UNCHECKED)
+				$VersionUtilisee = "Origianle"
+				AjoutLog("Version utilisée : Origianle")
+				GUICtrlSetState($BuildsItem, $GUI_DISABLE)
+			Else
+				GUICtrlSetState($VersionItem, $GUI_CHECKED)
+				$VersionUtilisee = "Mofif"
+				AjoutLog("Version utilisée : Modifiée")
+				GUICtrlSetState($BuildsItem, $GUI_ENABLE)
+			EndIf
+			IniWrite($OptionsIni, "Infos", "VersionUtilisee", $VersionUtilisee)
 
 	EndSwitch
 WEnd

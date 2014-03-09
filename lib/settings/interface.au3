@@ -5,13 +5,15 @@
 Global $MainForm = GUICreate("Settings Arreat Core",617,306,-1,-1,-1,-1)
 GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 ;;Menu
+$OutilsMenu = GUICtrlCreateMenu("Outils")
+$LogsItem = GUICtrlCreateMenuItem("Afficher les logs", $OutilsMenu)
+$StatsItem = GUICtrlCreateMenuItem("Afficher les stats", $OutilsMenu)
+$GrablistsItem = GUICtrlCreateMenuItem("Afficher les grablists", $OutilsMenu)
+$BuildsItem = GUICtrlCreateMenuItem("Afficher les builds", $OutilsMenu)
 $OptionsMenu = GUICtrlCreateMenu("Options")
-$LogsMenu = GUICtrlCreateMenuItem("Afficher les logs", $OptionsMenu)
-$StatsMenu = GUICtrlCreateMenuItem("Afficher les stats", $OptionsMenu)
-$GrablistsMenu = GUICtrlCreateMenuItem("Afficher les grablists", $OptionsMenu)
-$BuildsMenu = GUICtrlCreateMenuItem("Afficher les builds", $OptionsMenu)
+$VersionItem = GUICtrlCreateMenuItem("Version modifié", $OptionsMenu)
 GUICtrlCreateMenuitem("", $OptionsMenu)
-$EnreD3PrefsMenu = GUICtrlCreateMenuItem("Enregistrer le D3Prefs.txt", $OptionsMenu)
+$EnreD3PrefsItem = GUICtrlCreateMenuItem("Enregistrer le D3Prefs.txt", $OptionsMenu)
 $CpuGpuItem = GUICtrlCreateMenuItem("Cpu/gpu pour Bot", $OptionsMenu)
 GUICtrlCreateMenuitem("", $OptionsMenu)
 $DevmodeItem = GUICtrlCreateMenuItem("Devmode", $OptionsMenu)
@@ -58,6 +60,7 @@ Func ChoixVersion()
 				Else
 					$VersionUtilisee = "Modif"
 				EndIf
+
 				;on enregistre la version utilisée dans SettingsArreatCore.ini
 				iniwrite($OptionsIni, "Infos","VersionUtilisee",$VersionUtilisee)
 
@@ -141,6 +144,7 @@ EndFunc;==>Builds
 Func Apropos()
 
 	$Apropos = GUICreate("A Propos",350,166,-1,-1,-1,$WS_EX_TOPMOST)
+	GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 	$ButtonFermerApropos = GUICtrlCreateButton("Quitter",266,140,79,20,-1,-1)
 	$ImageApropos = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",5,5,156,156,-1,-1)
 	GUICtrlCreateLabel("Settings Arreat Core",185,10,143,15,-1,-1)
@@ -188,6 +192,7 @@ EndFunc;==>Apropos
 Func CreerBuild()
 
 	Global $CreerBuild = GUICreate("Nom du build",260,80,-1,-1,-1,$WS_EX_TOPMOST)
+	GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 	GUICtrlCreateLabel("Nom du build :",15,15,74,15,-1,-1)
 	GUICtrlSetBkColor(-1,"-2")
 	Global $InputCreerBuild = GUICtrlCreateInput("",95,10,150,20,-1,512)
@@ -269,9 +274,14 @@ EndFunc;==>Logs
 Func Grablists()
 
 	Global $Grablist = GUICreate("Grablists",668,420,-1,-1,-1,-1)
+	GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
 	Global $EditGrablists = GUICtrlCreateEdit("",5,40,659,376,-1,-1)
 	Global $ComboLectureGrablist = GUICtrlCreateCombo("",80,10,150,21,-1,-1)
-	GUICtrlSetData(-1,"grabListTourment.txt|grabListTourmentXp.txt|grabListTourmentRecycle.txt|grablistNormal.txt|grablistDifficile.txt|grablistExpert.txt|grablistCalvaire.txt")
+	If $VersionUtilisee = "Originale" Then
+		GUICtrlSetData(-1,"grablist_file.txt")
+	Else
+		GUICtrlSetData(-1,"grabListTourment.txt|grabListTourmentXp.txt|grabListTourmentRecycle.txt|grablistNormal.txt|grablistDifficile.txt|grablistExpert.txt|grablistCalvaire.txt")
+	EndIf
 	GUICtrlCreateLabel("Grablists :",15,15,50,15,-1,-1)
 	GUICtrlSetFont(-1,8,400,4,"MS Sans Serif")
 	GUICtrlSetBkColor(-1,"-2")
@@ -350,7 +360,7 @@ Func Stats()
 				AjoutLog("Effacement des stats")
 
 			Case $ButtonCopierStats
-				Local $StatsCopier = GUICtrlRead($Edit_Stats)
+				Local $StatsCopier = GUICtrlRead($EditStats)
 				ClipPut($StatsCopier)
 				AjoutLog("Copie des stats dans le presse-papier")
 
