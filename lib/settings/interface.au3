@@ -11,11 +11,12 @@ $StatsItem = GUICtrlCreateMenuItem("Afficher les stats", $OutilsMenu)
 $GrablistsItem = GUICtrlCreateMenuItem("Afficher les grablists", $OutilsMenu)
 $BuildsItem = GUICtrlCreateMenuItem("Afficher les builds", $OutilsMenu)
 $OptionsMenu = GUICtrlCreateMenu("Options")
-$VersionItem = GUICtrlCreateMenuItem("Version modifié", $OptionsMenu)
+$VersionItem = GUICtrlCreateMenuItem("Version modifiée", $OptionsMenu)
 GUICtrlCreateMenuitem("", $OptionsMenu)
 $EnreD3PrefsItem = GUICtrlCreateMenuItem("Enregistrer le D3Prefs.txt", $OptionsMenu)
 $CpuGpuItem = GUICtrlCreateMenuItem("Cpu/gpu pour Bot", $OptionsMenu)
 GUICtrlCreateMenuitem("", $OptionsMenu)
+$DebugItem = GUICtrlCreateMenuItem("Debug (logs)", $OptionsMenu)
 $DevmodeItem = GUICtrlCreateMenuItem("Devmode", $OptionsMenu)
 $HelpMenu = GUICtrlCreateMenu("?")
 $InfoItem = GUICtrlCreateMenuItem("Aide", $HelpMenu)
@@ -34,6 +35,7 @@ _GUICtrlListView_InsertColumn($ListviewProfils, 0, "Profil", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 1, "Nom du perso", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
 
+
 Func ChoixVersion()
 
 	Global $ChoixVersion = GUICreate("Choix de la version utilisée",326,102,-1,-1,$WS_POPUP+$WS_BORDER,$WS_EX_TOPMOST)
@@ -46,6 +48,7 @@ Func ChoixVersion()
 	GUISetState(@SW_SHOW,$ChoixVersion)
 
 	AjoutLog("Ouverture de la fenêtre : Choix de la version")
+	GUICtrlSetState($RadioArreatCoreOriginal, $GUI_CHECKED);on selectionne la version originale par défaut
 
 	While 1
 
@@ -57,6 +60,12 @@ Func ChoixVersion()
 
 				If IsChecked($RadioArreatCoreOriginal) Then
 					$VersionUtilisee = "Originale"
+					GUICtrlSetState($BuildsItem, $GUI_DISABLE)
+					GUICtrlSetState($ListviewProfils, $GUI_DISABLE)
+					GUICtrlSetState($DeleteProfil, $GUI_DISABLE)
+					GUICtrlSetState($ChargerProfil, $GUI_DISABLE)
+					GUICtrlSetState($AddProfil, $GUI_DISABLE)
+					$EditProfil = GUICtrlCreateButton("Editer Settings",110,250,100,22,-1,-1)
 				Else
 					$VersionUtilisee = "Modif"
 				EndIf
@@ -379,6 +388,143 @@ Func Stats()
 	WEnd
 
 EndFunc;==>Stats
+
+Func EditSettingsBis()
+
+Global $MainBis = GUICreate("Edition settings.ini",584,522,-1,-1,-1,$WS_EX_TOPMOST)
+GUISetIcon(@scriptdir & "\lib\ico\icon.ico", -1)
+Global $tab = GUICtrlCreatetab(6,5,574,481,-1,-1)
+
+Global $TabGeneral = GUICtrlCreateTabItem("Général")
+GUICtrlSetState(-1,$GUI_SHOW)
+GUICtrlCreateLabel("Pass D3 :",18,40,50,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+Global $InputPassD3 = GUICtrlCreateInput("",75,35,90,19,-1,512)
+GUICtrlCreateLabel("Arcane  (% vie) :",428,59,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",515,54,34,20,-1,512)
+GUICtrlCreateInput("",515,84,34,20,-1,512)
+GUICtrlCreateLabel("Proj        (%vie) :",428,89,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",515,114,34,20,-1,512)
+GUICtrlCreateInput("",515,144,34,20,-1,512)
+GUICtrlCreateGroup("Affixes",415,34,149,354,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateInput("",515,174,34,20,-1,512)
+GUICtrlCreateInput("",515,204,34,20,-1,512)
+GUICtrlCreateInput("",515,234,34,20,-1,512)
+GUICtrlCreateInput("",515,264,34,20,-1,512)
+GUICtrlCreateInput("",515,294,34,20,-1,512)
+GUICtrlCreateInput("",515,324,34,20,-1,512)
+GUICtrlCreateInput("",515,354,34,20,-1,512)
+GUICtrlCreateLabel("Peste    (% vie) :",428,119,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Lave     (% vie) :",428,149,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Mine      (% vie) :",428,179,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Arm       (% vie) :",428,209,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Spore    (% vie) :",428,239,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Profa    (% vie) :",428,269,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Glace   (% vie) :",428,299,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Poison  (% vie) :",428,329,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Explo    (% vie) :",428,359,91,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateGroup("Résurection",277,34,123,74,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateCheckbox("activée",291,54,82,19,-1,-1)
+GUICtrlCreateLabel("Nombre :",291,81,66,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",352,79,34,20,-1,512)
+GUICtrlCreateCheckbox("UsePath",176,63,94,22,-1,-1)
+GUICtrlCreateLabel("Liste Monstres :",18,427,76,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Liste Monstres Spéciaux :",18,457,125,14,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Séquence :",18,397,115,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",145,455,419,20,-1,512)
+GUICtrlCreateInput("",145,425,419,18,-1,512)
+GUICtrlCreateInput("",143,395,419,20,-1,512)
+GUICtrlCreateLabel("Qualité Objet :",18,68,76,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",110,63,34,20,-1,512)
+GUICtrlCreateCheckbox("Non identifié",176,34,94,20,-1,-1)
+GUICtrlCreateGroup("",20,109,168,135,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateLabel("Tempo. Attaque :",30,130,89,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",125,124,50,20,-1,512)
+GUICtrlCreateLabel("Tempo. Collect :",30,160,87,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",125,154,50,20,-1,512)
+GUICtrlCreateInput("",135,184,40,20,-1,512)
+GUICtrlCreateInput("",135,214,40,20,-1,512)
+GUICtrlCreateLabel("Distance Attaque :",30,190,103,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Distance Collecte :",30,220,105,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateGroup("",200,109,200,135,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateCheckbox("Gestion des Affixes",212,124,171,20,-1,-1)
+GUICtrlCreateCheckbox("Gestion des Affixes de Loot",212,154,170,20,-1,-1)
+GUICtrlCreateCheckbox("Gestion des Affixes par Classe",211,184,171,20,-1,-1)
+GUICtrlCreateLabel("Bannir Affixe :",208,219,74,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",282,214,114,20,-1,512)
+GUICtrlCreateGroup("",20,245,168,143,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateGroup("",200,244,200,144,-1,-1)
+GUICtrlSetBkColor(-1,"0xF0F0F0")
+GUICtrlCreateCheckbox("Vérifier si Objet",212,254,170,20,-1,-1)
+GUICtrlCreateCheckbox("Vérifier Inventaire",212,281,170,20,-1,-1)
+GUICtrlCreateCheckbox("Priorité aux Monstres",211,309,170,20,-1,-1)
+GUICtrlCreateCheckbox("Tri des Monstres",212,337,170,20,-1,-1)
+GUICtrlCreateCheckbox("Vérifier si Monstres",212,364,170,20,-1,-1)
+GUICtrlCreateLabel("Temps Max/Parties :",30,261,125,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",30,281,150,20,-1,512)
+GUICtrlCreateLabel("Rép. après X Parties :",30,316,103,17,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateCheckbox("Prendre les Sanctuaires",30,355,150,20,-1,-1)
+GUICtrlCreateInput("",146,313,34,19,-1,512)
+GUICtrlCreateLabel("Vie pour Potions :",18,95,90,16,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",110,92,34,20,-1,512)
+GUICtrlCreateLabel("Stock Potion :",166,94,70,15,-1,-1)
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateInput("",236,91,34,20,-1,512)
+;
+GUICtrlCreateTabItem("Prébuffs - Spells")
+
+;
+GUICtrlCreateTabItem("Spells Secondaires")
+
+GUICtrlCreateTabItem("")
+GUICtrlCreateButton("Enregistrer les modifications",415,489,164,25,-1,-1)
+GUICtrlCreateButton("Annuler",311,489,100,25,-1,-1)
+GUISetState(@SW_SHOW,$MainBis)
+
+	AjoutLog("Ouverture de la fenêtre 'Edition du settings'")
+
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				GUIDelete($MainBis)
+				AjoutLog("Fermeture de la fenêtre 'Edition du settings'")
+				ExitLoop
+
+		EndSwitch
+	WEnd
+
+EndFunc;==>EditSettingsBis
 
 Func EditSettings($ProfilSel)
 
@@ -868,8 +1014,12 @@ Func CreerProfil()
 				ExitLoop
 
 			Case $CreerProfil
-
-				CreationProfil($DossierProfils)
+				Switch $VersionUtilisee
+					Case "Modif"
+						CreationProfil($DossierProfilsModif)
+					Case "Originale"
+						CreationProfil($DossierProfilsOriginale)
+				EndSwitch
 				GUIDelete($CreationProfil)
 				AjoutLog("Fermeture de la fenêtre 'Créer un profil'")
 				ExitLoop

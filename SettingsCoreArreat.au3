@@ -39,7 +39,9 @@ If FileExists($OptionsIni) = 0 Then ;on test si le fichier de config existe
 EndIf
 
 ;;Test pour savoir si les dossiers profils,builds et logs existent
-If FileExists($DossierProfils) = 0 or FileExists($DossierBuilds) = 0 or FileExists($DossierLogs) = 0 or FileExists($DossierProfilsSettings) = 0 Then
+If FileExists($DossierProfils) = 0 or FileExists($DossierBuilds) = 0 or FileExists($DossierLogs) = 0 _
+	or FileExists($DossierProfilsModif) = 0 or FileExists($DossierProfilsOriginale) = 0 _
+	or FileExists($DossierProfilsOriginale & "settings\") = 0 or FileExists($DossierProfilsOriginale & "settings\") = 0 Then
 	DossierAcreer()
 Else
 	AjoutLog("Dossiers builds, profils et logs : OK")
@@ -51,25 +53,21 @@ $VersionUtilisee = IniRead($OptionsIni,"Infos","VersionUtilisee","")
 Switch $VersionUtilisee
 	Case "" ;on lance la fenêtre de choix de la version
 		ChoixVersion()
-	Case "Originale" ;on désative les builds pour la version originale
-		GUICtrlSetState($BuildsItem, $GUI_DISABLE)
+	Case "Originale";;on liste dans "$ListProfils" tous les profils dispos du dossier 'Originale'
 		GUISetState(@SW_SHOW, $MainForm)
-	Case "Modif"
+		ListerProfils($DossierProfilsOriginale)
+	Case "Modif";;on liste dans "$ListProfils" tous les profils dispos du dossier 'Modif'
 		GUISetState(@SW_SHOW, $MainForm)
+		ListerProfils($DossierProfilsModif)
 EndSwitch
 
+LectureOptions();Lecture options pour le menu
+RempliOptions();On répercute les valeurs (VersionUtilisee, Devmode et D3PrefsBot) données par la lecture
 
 ;;On test si diablo 3 est installé sur la machine
 ;If IsRegExists("HKEY_CURRENT_USER", "Software\Blizzard Entertainment\Diablo III Launcher") Then
 
 ;EndIf
-
-LectureOptions();Lecture options pour le menu
-RempliOptions();On répercute les valeurs (VersionUtilisee, Devmode et D3PrefsBot) données par la lecture
-
-;;on liste dans "$ListProfils" tous les profils dispos
-ListerProfils($DossierProfils)
-
 
 While 1
 $nMsg = GUIGetMsg()
@@ -80,27 +78,42 @@ $nMsg = GUIGetMsg()
 		Case $AddProfil
 
 			CreerProfil()
-			ListerProfils($DossierProfils)
+			Switch $VersionUtilisee
+				Case "Modif"
+					ListerProfils($DossierProfilsModif)
+				Case "Originale"
+					ListerProfils($DossierProfilsOriginale)
+				EndSwitch
 
 		Case $EditProfil
 
-			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+			If $VersionUtilisee = "Modif" Then
+				Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 
-			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
-				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
-				Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
-				EditProfil($ProfilEdit)
+				If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
+					Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+					Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+					EditProfil($ProfilEdit)
+				Else
+					MsgBox( 48, "", "Aucun profil de sélectionné", 3)
+				EndIf
+
+				ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
+				$selection = "" ;On vide la variable pour le prochian chargement
 			Else
-				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
+				EditProfilBis()
 			EndIf
-
-			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
-			$selection = "" ;On vide la variable pour le prochian chargement
 
 		Case $DeleteProfil
 
-			SupprimerProfil($DossierProfils)
-			ListerProfils($DossierProfils)
+			Switch $VersionUtilisee
+				Case "Modif"
+					SupprimerProfil($DossierProfilsModif)
+					ListerProfils($DossierProfilsModif)
+				Case "Originale"
+					SupprimerProfil($DossierProfilsOriginale)
+					ListerProfils($DossierProfilsOriginale)
+			EndSwitch
 
 		Case $ChargerProfil
 
@@ -170,22 +183,49 @@ $nMsg = GUIGetMsg()
 				$Devmode = "true"
 				AjoutLog("On active le Devmode")
 			EndIf
-			IniWrite($SettingsIni, "Run info", "Devmode", $Devmode)
+
+			If $VersionUtilisee = "Modif" Then
+				IniWrite($SettingsIni, "Run info", "Devmode", $Devmode)
+			Else
+				IniWrite(@ScriptDir& "\settings.ini", "Run info", "Devmode", $Devmode)
+			EndIf
+
+		Case $DebugItem
+
+			If BitAND(GUICtrlRead($DebugItem), $GUI_CHECKED) = $GUI_CHECKED Then
+                GUICtrlSetState($DebugItem, $GUI_UNCHECKED)
+				$Debug = 0
+				AjoutLog("On désactive le Debug (logs)")
+			Else
+				GUICtrlSetState($DebugItem, $GUI_CHECKED)
+				$Debug = 1
+				AjoutLog("On active le Debug (logs)")
+			EndIf
+
+			If $VersionUtilisee = "Modif" Then
+				IniWrite($SettingsIni, "Run info", "debug", $Debug)
+			EndIf
 
 		Case $VersionItem
 
 			If BitAND(GUICtrlRead($VersionItem), $GUI_CHECKED) = $GUI_CHECKED Then
                 GUICtrlSetState($VersionItem, $GUI_UNCHECKED)
-				$VersionUtilisee = "Origianle"
+				$VersionUtilisee = "Originale"
 				AjoutLog("Version utilisée : Origianle")
 				GUICtrlSetState($BuildsItem, $GUI_DISABLE)
+				GUICtrlSetState($DebugItem, $GUI_DISABLE)
+				ListerProfils($DossierProfilsOriginale)
 			Else
 				GUICtrlSetState($VersionItem, $GUI_CHECKED)
-				$VersionUtilisee = "Mofif"
+				$VersionUtilisee = "Modif"
 				AjoutLog("Version utilisée : Modifiée")
 				GUICtrlSetState($BuildsItem, $GUI_ENABLE)
+				GUICtrlSetState($DebugItem, $GUI_ENABLE)
+				ListerProfils($DossierProfilsModif)
 			EndIf
 			IniWrite($OptionsIni, "Infos", "VersionUtilisee", $VersionUtilisee)
+
+		Case $ListviewProfils
 
 	EndSwitch
 WEnd

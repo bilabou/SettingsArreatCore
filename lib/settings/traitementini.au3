@@ -480,7 +480,16 @@ Func LectureOptions()
 
 	If $VersionUtilisee = "Modif" Then
 		$Devmode = IniRead($SettingsIni, "Run info", "Devmode", "")
+		$Debug = IniRead($SettingsIni, "Run info", "debug", "")
+
+		Switch $Debug
+			Case 0
+				GUICtrlSetState($DebugItem, $GUI_UNCHECKED)
+			Case 1
+				GUICtrlSetState($DebugItem, $GUI_CHECKED)
+		EndSwitch
 	Else
+		GUICtrlSetState($DebugItem, $GUI_DISABLE);on desactive l'item , l'option n'existe pas dans la version originale
 		$Devmode = IniRead(@ScriptDir& "\settings.ini", "Run info", "Devmode", "")
 	EndIf
 
