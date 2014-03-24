@@ -2,8 +2,12 @@
 
 #NoTrayIcon
 
-Global $MainForm = GUICreate("Settings Arreat Core",617,306,-1,-1,-1,-1)
+Global $MainForm = GUICreate("Settings Core Arreat",617,541,-1,-1,-1,-1)
+
+;;On créé la Tab Options
+TabOptions()
 GUISetIcon(@ScriptDir & "\lib\ico\icon.ico")
+
 ;;Menu
 $OutilsMenu = GUICtrlCreateMenu("Outils")
 $LogsItem = GUICtrlCreateMenuItem("Afficher les logs", $OutilsMenu)
@@ -22,19 +26,44 @@ $HelpMenu = GUICtrlCreateMenu("?")
 $InfoItem = GUICtrlCreateMenuItem("Aide", $HelpMenu)
 $AproposItem = GUICtrlCreateMenuItem("A propos", $HelpMenu)
 ;;Fin Menu
+
+;;Groupe Profils
 GUICtrlCreateGroup("Profils",5,5,441,272,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 GUICtrlSetBkColor(-1,"0xF0F0F0")
 Global $AddProfil = GUICtrlCreateButton("Ajouter Profil",10,250,100,22,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 Global $EditProfil = GUICtrlCreateButton("Editer Profil",110,250,100,22,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 Global $DeleteProfil = GUICtrlCreateButton("Effacer Profil",210,250,100,22,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 Global $ChargerProfil = GUICtrlCreateButton("Charger Profil",340,250,100,22,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 Global $ListviewProfils = GUICtrlCreatelistview("",10,20,430,225,-1,512)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 Global $ImageLogo = GUICtrlCreatePic(@ScriptDir & "\lib\images\logo.jpg",455,10,156,156,-1,-1)
-
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
+Global $CheckBoxModeAvance = GUICtrlCreateCheckbox("Mode avancé",460,180,150,20,-1,-1)
+GUICtrlSetResizing(-1,  $GUI_DOCKALL)
 _GUICtrlListView_InsertColumn($ListviewProfils, 0, "Profil", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 1, "Nom du perso", 100)
 _GUICtrlListView_InsertColumn($ListviewProfils, 2, "Build", 226)
+;; Fin Groupe Profils
 
+Func TabOptions()
+	Global $tab = GUICtrlCreatetab(10,300,600,211,-1,-1)
+	GuiCtrlSetState(-1,2048)
+	GUICtrlCreateTabItem("Options")
+	GUICtrlCreateTabItem("")
+	GUICtrlCreateTabItem("Logs")
+	GUICtrlCreateInput("Texte",20,329,478,172,-1,512)
+	GUICtrlCreateButton("Effacer",502,471,100,22,-1,-1)
+	GUICtrlCreateButton("Exporter",502,438,100,22,-1,-1)
+	GUICtrlCreateTabItem("")
+
+	;On cache le TabItem
+	GUICtrlSetState($tab, $GUI_HIDE)
+EndFunc
 
 Func ChoixVersion()
 

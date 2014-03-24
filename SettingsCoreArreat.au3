@@ -2,7 +2,6 @@
 #include <GUIConstantsEx.au3>
 #include <WindowsConstants.au3>
 #include <MsgBoxConstants.au3>
-;#include <InetConstants.au3>
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>
 #include <EditConstants.au3>
@@ -61,6 +60,13 @@ Switch $VersionUtilisee
 		ListerProfils($DossierProfilsModif)
 EndSwitch
 
+;;On récupère la taille et position de l'interface
+$Pos = WinGetPos($MainForm)
+;;On fixe la taille de l'interface au démarrage
+WinMove($MainForm,"",Default, Default, 623,331)
+
+WinSetOnTop($MainForm,"",0)
+
 LectureOptions();Lecture options pour le menu
 RempliOptions();On répercute les valeurs (VersionUtilisee, Devmode et D3PrefsBot) données par la lecture
 
@@ -87,22 +93,36 @@ $nMsg = GUIGetMsg()
 
 		Case $EditProfil
 
-			If $VersionUtilisee = "Modif" Then
-				Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+			Switch $VersionUtilisee
+				Case "Modif"
+					Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 
-				If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
-					Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
-					Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
-					EditProfil($ProfilEdit)
-				Else
-					MsgBox( 48, "", "Aucun profil de sélectionné", 3)
-				EndIf
+					If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
+						Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+						Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+						EditProfil($ProfilEdit)
+					Else
+						MsgBox( 48, "", "Aucun profil de sélectionné", 3)
+					EndIf
 
-				ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
-				$selection = "" ;On vide la variable pour le prochian chargement
-			Else
-				EditProfilBis()
-			EndIf
+					ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
+					$selection = "" ;On vide la variable pour le prochian chargement
+
+				Case "Originale"
+					Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+
+					If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
+						Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+						Local $ProfilEdit = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+						EditProfilBis($ProfilEdit)
+					Else
+						MsgBox( 48, "", "Aucun profil de sélectionné", 3)
+					EndIf
+
+					ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la sélection de la listview
+					$selection = "" ;On vide la variable pour le prochian chargement
+
+			EndSwitch
 
 		Case $DeleteProfil
 
@@ -117,18 +137,26 @@ $nMsg = GUIGetMsg()
 
 		Case $ChargerProfil
 
-			Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
+			Switch $VersionUtilisee
+				Case "Modif"
+					Local $selection = GUICtrlRead($ListviewProfils) ;On lit l'item sélectionné
 
-			If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
-				Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
-				Local $ProfilCharge = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
-				ChargeProfil($ProfilCharge)
-			Else
-				MsgBox( 48, "", "Aucun profil de sélectionné", 3)
-			EndIf
+					If $selection <> 0 Then ;On vérifie qu'il ait bien sélection
+						Local $index = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetSelected")
+						Local $ProfilCharge = ControlListView("Settings Arreat Core", "", $ListviewProfils, "GetText", $index) ;On récupère le nom du profil dans la listview
+						ChargeProfil($ProfilCharge)
+					Else
+						MsgBox( 48, "", "Aucun profil de sélectionné", 3)
+					EndIf
 
-			ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
-			$selection = "" ;On vide la variable pour le prochian chargement
+					ControlListView ("Settings Arreat Core", "", $ListviewProfils, "DeSelect", -1) ;Annule la selection de la listview
+					$selection = "" ;On vide la variable pour le prochian chargement
+
+				Case "Originale"
+
+
+
+			EndSwitch
 
 		Case $LogsItem
 
@@ -157,7 +185,7 @@ $nMsg = GUIGetMsg()
 
 		Case $CpuGpuItem
 
-			If BitAND(GUICtrlRead($CpuGpuItem), $GUI_CHECKED) = $GUI_CHECKED Then
+			If IsChecked($CpuGpuItem) Then
                 GUICtrlSetState($CpuGpuItem, $GUI_UNCHECKED)
 				FileCopy($D3PrefsPourBot, $D3PrefsD3, 9)
 				GUICtrlSetState($EnreD3PrefsItem, $GUI_ENABLE)
@@ -174,7 +202,7 @@ $nMsg = GUIGetMsg()
 
 		Case $DevmodeItem
 
-			If BitAND(GUICtrlRead($DevmodeItem), $GUI_CHECKED) = $GUI_CHECKED Then
+			If IsChecked($DevmodeItem) Then
                 GUICtrlSetState($DevmodeItem, $GUI_UNCHECKED)
 				$Devmode = "false"
 				AjoutLog("On désactive le Devmode")
@@ -192,7 +220,7 @@ $nMsg = GUIGetMsg()
 
 		Case $DebugItem
 
-			If BitAND(GUICtrlRead($DebugItem), $GUI_CHECKED) = $GUI_CHECKED Then
+			If IsChecked($DebugItem) Then
                 GUICtrlSetState($DebugItem, $GUI_UNCHECKED)
 				$Debug = 0
 				AjoutLog("On désactive le Debug (logs)")
@@ -208,7 +236,7 @@ $nMsg = GUIGetMsg()
 
 		Case $VersionItem
 
-			If BitAND(GUICtrlRead($VersionItem), $GUI_CHECKED) = $GUI_CHECKED Then
+			If IsChecked($VersionItem) Then
                 GUICtrlSetState($VersionItem, $GUI_UNCHECKED)
 				$VersionUtilisee = "Originale"
 				AjoutLog("Version utilisée : Origianle")
@@ -226,6 +254,16 @@ $nMsg = GUIGetMsg()
 			IniWrite($OptionsIni, "Infos", "VersionUtilisee", $VersionUtilisee)
 
 		Case $ListviewProfils
+
+		Case $CheckBoxModeAvance
+
+			If IsChecked($CheckBoxModeAvance) Then
+				WinMove($MainForm,"",Default, Default, 623,561)
+				GUICtrlSetState($tab, $GUI_SHOW)
+			Else
+				WinMove($MainForm,"",Default, Default, 623,331)
+				GUICtrlSetState($tab, $GUI_HIDE)
+			EndIf
 
 	EndSwitch
 WEnd

@@ -76,8 +76,8 @@ EndFunc;==>SupprimerProfil
 ;;Fonction permettant d'éditer un profil
 Func EditProfil($Profil)
 
-	Local $SettingsEdit = $DossierProfilsSettings & "settings_" & $Profil
-	Local $SettingsHeroEdit = $DossierProfilsSettings & "settingshero_" & $Profil
+	Local $SettingsEdit = $DossierProfilsModif & "settings\settings_" & $Profil
+	Local $SettingsHeroEdit = $DossierProfilsModif & "settings\settingshero_" & $Profil
 	LoadConfigs($SettingsEdit)
 	LoadConfigsHero($SettingsHeroEdit)
 	EditSettings($Profil)
@@ -85,8 +85,9 @@ Func EditProfil($Profil)
 EndFunc;==>EditProfil
 
 ;;Fonction permettant d'éditer le settings de la version originale
-Func EditProfilBis()
-	LoadConfigsBis()
+Func EditProfilBis($Profil)
+	Local $SettingsEdit = $DossierProfilsOriginale & "settings\settings_" & $Profil
+	LoadConfigsBis($SettingsEdit)
 	EditSettingsBis()
 EndFunc;==>EditProfilBis
 
